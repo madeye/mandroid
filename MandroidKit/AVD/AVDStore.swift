@@ -17,7 +17,7 @@ public struct AVDStore: Sendable {
     /// snapshots) is preserved; only the ini files are (re)written.
     /// The emulator appends `hw.displayN.*` keys at runtime; we strip them so
     /// every boot starts with display 0 only.
-    /// Returns true when an existing display profile changed and its old
+    /// Returns true when an existing display or GPU profile changed and its old
     /// quickboot snapshot must not be loaded. User data is never reset.
     @discardableResult
     public func write(_ config: AVDConfig) throws -> Bool {
@@ -25,7 +25,7 @@ public struct AVDStore: Sendable {
         let ini = dir.appendingPathComponent("config.ini")
         let previous = try? String(contentsOf: ini, encoding: .utf8)
         let rendered = config.renderConfigINI()
-        let displayKeys = ["hw.lcd.width", "hw.lcd.height", "hw.lcd.density", "hw.initialOrientation"]
+        let snapshotKeys = ["hw.lcd.width", "hw.lcd.height", "hw.lcd.density", "hw.initialOrientation", "hw.gpu.mode", "mandroid.gpu.backend"]
         func value(_ key: String, in text: String) -> String? {
             for line in text.split(separator: "\n") {
                 let parts = line.split(separator: "=", maxSplits: 1, omittingEmptySubsequences: false)
@@ -35,14 +35,14 @@ public struct AVDStore: Sendable {
             }
             return nil
         }
-        let displayChanged = previous.map { old in
-            displayKeys.contains { value($0, in: old) != value($0, in: rendered) }
+        let profileChanged = previous.map { old in
+            snapshotKeys.contains { value($0, in: old) != value($0, in: rendered) }
         } ?? false
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         try rendered.write(to: ini, atomically: true, encoding: .utf8)
         try config.renderPointerINI(avdDirectory: dir)
             .write(to: paths.avdHome.appendingPathComponent("\(config.name).ini"), atomically: true, encoding: .utf8)
-        return displayChanged
+        return profileChanged
     }
 
     /// Removes `hw.display1..3` lines the emulator may have persisted.

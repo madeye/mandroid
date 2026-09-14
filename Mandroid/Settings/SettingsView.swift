@@ -12,7 +12,7 @@ struct SettingsView: View {
     @State private var volumeError: String?
 
 
-    private var needsRestart: Bool { settings.ramMB != saved.ramMB || settings.cores != saved.cores }
+    private var needsRestart: Bool { settings.ramMB != saved.ramMB || settings.cores != saved.cores || settings.gpuBackend != saved.gpuBackend }
 
     var body: some View {
         Form {
@@ -22,6 +22,9 @@ struct SettingsView: View {
                 }
                 Picker("CPU cores", selection: $settings.cores) {
                     ForEach(RunnerSettings.coreChoices, id: \.self) { Text("\($0)").tag($0) }
+                }
+                Picker("Graphics", selection: $settings.gpuBackend) {
+                    ForEach(GPUBackend.allCases, id: \.self) { Text($0.label).tag($0) }
                 }
                 if needsRestart {
                     Text("Takes effect after the emulator restarts.").font(.caption).foregroundStyle(.secondary)

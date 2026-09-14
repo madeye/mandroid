@@ -136,11 +136,12 @@ public final class RunnerCoordinator {
             }
             var config = AVDConfig(systemImagePath: image.packagePath)
             config.name = avdName
-            RunnerSettings.load().apply(to: &config)
+            let settings = RunnerSettings.load()
+            settings.apply(to: &config)
             // (Re)write the ini files every boot: picks up RAM/core changes and
             // drops hw.displayN.* keys the emulator persisted. User data and
             // snapshots live in other files and are untouched.
-            let displayChanged = try avdStore.write(config)
+            let profileChanged = try avdStore.write(config)
 
             guard let console = PortAllocator.freeConsolePort(),
                   let grpc = PortAllocator.freePort(in: 8554...8654),
@@ -148,7 +149,8 @@ public final class RunnerCoordinator {
                 throw MandroidKitError.emulator("no free ports")
             }
             var options = EmulatorLaunchOptions(avdName: avdName, consolePort: console, grpcPort: grpc, adbServerPort: adbPort)
-            options.coldBoot = coldBoot || displayChanged
+            options.coldBoot = coldBoot || profileChanged
+            options.gpuBackend = settings.gpuBackend
 
             setStage("Starting adb")
             let adb = ADBClient(paths: paths, serverPort: adbPort, serial: options.serial)

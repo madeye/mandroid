@@ -21,7 +21,7 @@ public final class EmulatorProcess: @unchecked Sendable {
 
         process.executableURL = paths.emulatorBinary
         process.arguments = options.arguments
-        process.environment = paths.environment(adbServerPort: options.adbServerPort)
+        process.environment = options.gpuBackend.environment(from: paths.environment(adbServerPort: options.adbServerPort))
         process.currentDirectoryURL = paths.root
         process.standardOutput = handle
         process.standardError = handle

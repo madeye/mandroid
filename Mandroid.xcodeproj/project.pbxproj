@@ -86,6 +86,7 @@
 		D2F4038A521D72D1500DEBA4 /* LauncherStubBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA57E57B95AE22134C1E9C8 /* LauncherStubBuilder.swift */; };
 		D31CB0D9A9380FA508B0B53C /* InputRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AABDC6915A7C99384D3459 /* InputRouter.swift */; };
 		D4BC40D0D59F484F16264828 /* emulator_controller.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB7F8283829550F01F27379 /* emulator_controller.pb.swift */; };
+		DD46327E5999D21122E576B3 /* GPUBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D33770E780457C7F1F097F5 /* GPUBackend.swift */; };
 		E004BA10A34CFBDE1A58D7DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9729937DF91EB20F700976AA /* Assets.xcassets */; };
 		E065A1D2DBB653C32951E245 /* RepositoryManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD162AE710D7293ABAE6DA /* RepositoryManifest.swift */; };
 		E2F27000D2DF19DD22774D22 /* emulator_controller.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C4A646B6236138BB76872 /* emulator_controller.grpc.swift */; };
@@ -97,6 +98,7 @@
 		E8F64179DF7A44BC38D4662B /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E418B7AE15E4E19E586FF /* Downloader.swift */; };
 		EC9013947910B9DC38E0C12A /* AVDStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E371D0580A2405FA5D9F861A /* AVDStore.swift */; };
 		EFBFEE050CED03AD2B4E3E41 /* DownloadMirror.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BB7A4A6CDC3A601EB286D4 /* DownloadMirror.swift */; };
+		F04B857900FF2EA320B7B0EA /* GPUBackendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9C4268BD8813AED61B437D /* GPUBackendTests.swift */; };
 		F12B6081F2DF4A0290363E20 /* InputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1592A1AB2261451271FC320C /* InputTests.swift */; };
 		F6A7DC84B7247B1E506DA65D /* AAPT2Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC50724898B32D7CC77A08 /* AAPT2Fetcher.swift */; };
 		F9CE9BA3584809592025885E /* TaskListParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F57E157A54D12371B3287E5 /* TaskListParser.swift */; };
@@ -179,6 +181,7 @@
 		536A55812105ED240C8E7C38 /* ScrollGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollGesture.swift; sourceTree = "<group>"; };
 		55DA50087CE3FCBA56353A14 /* AppWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWindowController.swift; sourceTree = "<group>"; };
 		573F637DED923589D2EA7A4D /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		5D33770E780457C7F1F097F5 /* GPUBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUBackend.swift; sourceTree = "<group>"; };
 		624282BC5C68C313873805CF /* EmulatorClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorClient.swift; sourceTree = "<group>"; };
 		65FC82E5A6022D0FD80D1A42 /* CoordinateMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateMapper.swift; sourceTree = "<group>"; };
 		6779B6FF861E9BD4662EA422 /* UITestMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestMode.swift; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 		A22C4002AC149141CE2CCFEA /* APKBadging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APKBadging.swift; sourceTree = "<group>"; };
 		ACB7F8283829550F01F27379 /* emulator_controller.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emulator_controller.pb.swift; sourceTree = "<group>"; };
 		AD0026E3FBD96D348C57055D /* RepositoryManifestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryManifestTests.swift; sourceTree = "<group>"; };
+		AD9C4268BD8813AED61B437D /* GPUBackendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUBackendTests.swift; sourceTree = "<group>"; };
 		AE44AA57BFC4862E28A97484 /* CatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogTests.swift; sourceTree = "<group>"; };
 		B46C6E1A317C1DB9D1BEC272 /* dumpsys-display-3secondary.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "dumpsys-display-3secondary.txt"; sourceTree = "<group>"; };
 		B83297A94905C8AB9B23F9C3 /* AppCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCatalog.swift; sourceTree = "<group>"; };
@@ -280,6 +284,7 @@
 				EE16AFF83C05B8F4D2602E88 /* BootWaiter.swift */,
 				0F939B33E5C022C395681A59 /* EmulatorLaunchOptions.swift */,
 				E7BED9150E46ED563A22EE48 /* EmulatorProcess.swift */,
+				5D33770E780457C7F1F097F5 /* GPUBackend.swift */,
 				FFFD778394E844C309B038E7 /* GuestSetup.swift */,
 				D9850A27EBA910D608B21E5D /* PortAllocator.swift */,
 			);
@@ -540,6 +545,7 @@
 				2F3481CEAFB41E623B50A605 /* AuditRegressionTests.swift */,
 				AE44AA57BFC4862E28A97484 /* CatalogTests.swift */,
 				6811683DF5318ABF587E2333 /* Fixtures.swift */,
+				AD9C4268BD8813AED61B437D /* GPUBackendTests.swift */,
 				1592A1AB2261451271FC320C /* InputTests.swift */,
 				D8606B63E97ACE543CFD3493 /* MediaVolumeTests.swift */,
 				96276D7B0CFD82A66CC11112 /* ParserTests.swift */,
@@ -759,6 +765,7 @@
 				00EBD9C62DC4790FF40C7C6B /* AuditRegressionTests.swift in Sources */,
 				042A528ECE7E1A97BEF0C932 /* CatalogTests.swift in Sources */,
 				407A8753EE4BABD7F642049B /* Fixtures.swift in Sources */,
+				F04B857900FF2EA320B7B0EA /* GPUBackendTests.swift in Sources */,
 				F12B6081F2DF4A0290363E20 /* InputTests.swift in Sources */,
 				D2F4038A521D72D1500DEBA4 /* LauncherStubBuilder.swift in Sources */,
 				587B50F4C78DFE79DFC8BEF2 /* MediaVolumeTests.swift in Sources */,
@@ -794,6 +801,7 @@
 				7205336F82C0C7877D740FCA /* EmulatorProcess.swift in Sources */,
 				8B721CD8AD02413A7D7A3993 /* EmulatorSession.swift in Sources */,
 				4F1A02EE0DB0CA2E4820E00D /* Frame.swift in Sources */,
+				DD46327E5999D21122E576B3 /* GPUBackend.swift in Sources */,
 				400DF40E5CA1F033D0C6024A /* GRPCFrameStream.swift in Sources */,
 				875091EB49C033602956E670 /* GuestSetup.swift in Sources */,
 				7AE0BF2997499CBC7BD4B223 /* HTTPProxyEndpoint.swift in Sources */,

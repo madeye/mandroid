@@ -6,6 +6,7 @@ public struct RunnerSettings: Sendable, Equatable {
     public var mediaVolumePercent: Int?
     public var ramMB: Int = 4096
     public var cores: Int = 4
+    public var gpuBackend: GPUBackend = .defaultBackend
     public var defaultWindowHeight: Int = 800
     public var launcherStubs: Bool = true
     /// New app windows open in landscape ("horizontal") unless changed.
@@ -27,6 +28,7 @@ public struct RunnerSettings: Sendable, Equatable {
         if let v = defaults.object(forKey: "launcherStubs") as? Bool { s.launcherStubs = v }
         if let v = defaults.object(forKey: "landscapeByDefault") as? Bool { s.landscapeByDefault = v }
         if let v = defaults.string(forKey: "downloadMirror"), let m = DownloadMirror.Preference(rawValue: v) { s.downloadMirror = m }
+        if let value = defaults.string(forKey: "gpuBackend"), let backend = GPUBackend(rawValue: value) { s.gpuBackend = backend }
         return s
     }
 
@@ -34,6 +36,7 @@ public struct RunnerSettings: Sendable, Equatable {
         defaults.set(mediaVolumePercent, forKey: "mediaVolumePercent")
         defaults.set(ramMB, forKey: "ramMB")
         defaults.set(cores, forKey: "cores")
+        defaults.set(gpuBackend.rawValue, forKey: "gpuBackend")
         defaults.set(defaultWindowHeight, forKey: "defaultWindowHeight")
         defaults.set(launcherStubs, forKey: "launcherStubs")
         defaults.set(landscapeByDefault, forKey: "landscapeByDefault")
@@ -63,5 +66,6 @@ public struct RunnerSettings: Sendable, Equatable {
     public func apply(to config: inout AVDConfig) {
         config.ramMB = ramMB
         config.cores = cores
+        config.gpuBackend = gpuBackend
     }
 }

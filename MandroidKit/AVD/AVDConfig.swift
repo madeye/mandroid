@@ -16,7 +16,8 @@ public struct AVDConfig: Sendable, Hashable {
     public var lcdHeight: Int = 1600
     public var lcdDensity: Int = 320
     public var sdcardSizeMB: Int = 512
-    public var gpuMode: String = "host"
+    public var gpuMode: String { gpuBackend.emulatorMode }
+    public var gpuBackend: GPUBackend = .defaultBackend
 
     public init(systemImagePath: String) {
         self.systemImagePath = systemImagePath
@@ -56,6 +57,7 @@ public struct AVDConfig: Sendable, Hashable {
             ("hw.gps", "yes"),
             ("hw.gpu.enabled", "yes"),
             ("hw.gpu.mode", gpuMode),
+            ("mandroid.gpu.backend", gpuBackend.rawValue),
             ("hw.gyroscope", "yes"),
             ("hw.initialOrientation", "portrait"),
             ("hw.keyboard", "yes"),

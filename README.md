@@ -48,6 +48,12 @@ Settings includes a media-volume slider for all Android apps. It controls the
 guest's native media stream, supports mute, and restores your chosen level on
 restart. Audio continues to play through the emulator's native macOS backend.
 
+Settings ▸ Virtual device defaults to hardware graphics with Vulkan descriptor
+batching, with the original hardware, automatic, and software profiles available.
+Restart Android after changing the backend;
+existing app data is preserved. See [GPU benchmarks](docs/GPU-BENCHMARKS.md) for
+the measurement protocol and backend results.
+
 ## Requirements
 
 - A Mac with Apple silicon (M1 or later) running macOS 15 or later. Intel

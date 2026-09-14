@@ -7,7 +7,7 @@ public struct EmulatorLaunchOptions: Sendable, Hashable {
     public var grpcPort: Int
     public var adbServerPort: Int
     public var coldBoot: Bool = false
-    public var gpuMode: String = "host"
+    public var gpuBackend: GPUBackend = .defaultBackend
     public var extraArguments: [String] = []
 
     public init(avdName: String, consolePort: Int, grpcPort: Int, adbServerPort: Int) {
@@ -27,8 +27,8 @@ public struct EmulatorLaunchOptions: Sendable, Hashable {
             "-qt-hide-window",
             "-no-boot-anim",
             "-no-metrics",
-            "-gpu", gpuMode,
-            "-feature", "Vulkan",
+            "-gpu", gpuBackend.emulatorMode,
+            "-feature", gpuBackend.emulatorFeatures,
         ]
         if coldBoot { args += ["-no-snapshot-load"] }
         args += extraArguments
