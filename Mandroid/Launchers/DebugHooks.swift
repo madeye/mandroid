@@ -12,7 +12,8 @@ import MandroidKit
 /// - `debug/click?pkg=<pkg>&x=<pt>&y=<pt>` synthesises a mouse click in that
 ///   app window's view coordinates (`pkg=device` for the device screen)
 /// - `debug/drag?pkg=&x1=&y1=&x2=&y2=` synthesises a drag
-/// - `debug/scroll?pkg=&x=&y=&dy=<pt>` synthesises trackpad scroll deltas
+/// - `debug/scroll?pkg=&x=&y=&dy=<pt>[&dx=<pt>]` synthesises trackpad scroll deltas;
+///   `lines=<n>` instead sends one mouse-wheel event of n lines
 /// - `debug/type?pkg=&text=<text>` synthesises key presses for each character
 /// - `debug/key?pkg=&code=<keyCode>[&cmd=1][&shift=1]` one key press
 /// - `debug/resize?pkg=&w=&h=` resizes the window content
@@ -101,9 +102,13 @@ struct DebugHooks {
                   let x2 = Double(q["x2"] ?? ""), let y2 = Double(q["y2"] ?? "") else { return }
             synthesizeDrag(in: wc, from: CGPoint(x: x1, y: y1), to: CGPoint(x: x2, y: y2), steps: 12)
         case "scroll":
-            guard let wc = controller(q["pkg"]), let x = Double(q["x"] ?? ""), let y = Double(q["y"] ?? ""),
-                  let dy = Double(q["dy"] ?? "") else { return }
-            synthesizeScroll(in: wc, at: CGPoint(x: x, y: y), dy: dy)
+            guard let wc = controller(q["pkg"]), let x = Double(q["x"] ?? ""), let y = Double(q["y"] ?? "") else { return }
+            if let lines = Int32(q["lines"] ?? "") {
+                synthesizeWheel(in: wc, at: CGPoint(x: x, y: y), lines: lines)
+            } else if q["dx"] != nil || q["dy"] != nil {
+                synthesizeScroll(in: wc, at: CGPoint(x: x, y: y), dx: Double(q["dx"] ?? "") ?? 0,
+                                 dy: Double(q["dy"] ?? "") ?? 0)
+            }
         case "type":
             guard let wc = controller(q["pkg"]), let text = q["text"] else { return }
             for ch in text { synthesizeKey(in: wc, characters: String(ch), keyCode: 0, flags: []) }
@@ -237,23 +242,37 @@ struct DebugHooks {
         }
     }
 
-    private func synthesizeScroll(in wc: AppWindowController, at p: CGPoint, dy: Double) {
+    private func synthesizeScroll(in wc: AppWindowController, at p: CGPoint, dx: Double, dy: Double) {
         guard let (window, wp) = windowPoint(wc, p), let view = window.contentView as? FrameView else { return }
         // Build precise scroll events through CGEvent; deliver in 8 steps.
         Task { @MainActor in
             let steps = 8
             for i in 0..<steps {
                 guard let cg = CGEvent(scrollWheelEvent2Source: nil, units: .pixel, wheelCount: 2,
-                                       wheel1: Int32(dy / Double(steps)), wheel2: 0, wheel3: 0) else { return }
+                                       wheel1: Int32(dy / Double(steps)), wheel2: Int32(dx / Double(steps)),
+                                       wheel3: 0) else { return }
                 cg.setIntegerValueField(.scrollWheelEventIsContinuous, value: 1)
                 cg.setIntegerValueField(.scrollWheelEventScrollPhase, value: i == 0 ? 1 : 2)  // began / changed
-                let screen = window.convertPoint(toScreen: wp)
-                let flipped = CGPoint(x: screen.x, y: (NSScreen.screens.first?.frame.height ?? 0) - screen.y)
-                cg.location = flipped
+                cg.location = windowlessLocation(wp)
                 if let e = NSEvent(cgEvent: cg) { view.scrollWheel(with: e) }
                 try? await Task.sleep(for: .milliseconds(16))
             }
         }
+    }
+
+    private func synthesizeWheel(in wc: AppWindowController, at p: CGPoint, lines: Int32) {
+        guard let (window, wp) = windowPoint(wc, p), let view = window.contentView as? FrameView,
+              let cg = CGEvent(scrollWheelEvent2Source: nil, units: .line, wheelCount: 1,
+                               wheel1: lines, wheel2: 0, wheel3: 0) else { return }
+        cg.location = windowlessLocation(wp)
+        if let e = NSEvent(cgEvent: cg) { view.scrollWheel(with: e) }
+    }
+
+    /// A CGEvent-made NSEvent has no window, so AppKit reports its screen
+    /// location as `locationInWindow`. Place it where that equals `wp`; the
+    /// offscreen test window is not at the screen origin.
+    private func windowlessLocation(_ wp: CGPoint) -> CGPoint {
+        CGPoint(x: wp.x, y: (NSScreen.screens.first?.frame.height ?? 0) - wp.y)
     }
 
     private func synthesizeKey(in wc: AppWindowController, characters: String, keyCode: UInt16, flags: NSEvent.ModifierFlags) {

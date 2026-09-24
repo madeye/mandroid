@@ -138,6 +138,7 @@ targets:
     sources:
       - path: MandroidKitTests
       - path: Mandroid/Launchers/LauncherStubBuilder.swift
+      - path: Mandroid/AppWindow/FrameView.swift
     dependencies:
       - target: MandroidKit
     settings:

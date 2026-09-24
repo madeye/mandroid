@@ -9,6 +9,7 @@ public struct EmulatorSession: Sendable {
     public let client: EmulatorClient
     public let displays: DisplaySlotPool
     public let input: InputChannel
+    public let scroll: ScrollChannel
     public let router: InputRouter
     public let frames: any FrameStream
     /// Built-in display size in pixels (from the AVD).

@@ -82,6 +82,9 @@ echo "==> input: click, type, scroll, resize, back"
 hook "click?pkg=$PKG&x=210&y=450"; sleep 1
 hook "type?pkg=$PKG&text=abc"; sleep 1
 hook "scroll?pkg=$PKG&x=210&y=600&dy=-300"; sleep 1
+hook "scroll?pkg=$PKG&x=210&y=600&lines=-1"; sleep 1
+# Match on captured output: grep -q under pipefail can fail adb with SIGPIPE.
+[[ "$("$ADB" shell ps -A -o ARGS)" == *'app_process / ScrollInjector'* ]] || fail "scroll helper not running"
 # Send several sizes without waiting for Android to finish each update.
 # Verify the final guest resolution AND the actual streamed frame/input size.
 for size in '480&h=700' '800&h=420' '420&h=800' '1280&h=800'; do

@@ -534,11 +534,28 @@ registers `mandroid`; not `LSUIElement` (we own real windows).
   (otherwise the touch identifier leaks; the default `expiration` self-heals a
   lost up-event after 120 s). Click-and-hold is a long-press with no special
   handling.
-- Two-finger scroll → synthesised touch drag (`InputHandler` accumulates
-  scroll deltas into a moving touch, ending it after a short idle). The spike
-  showed `injectWheel` is dropped on the phone image; the only way to get a
-  wheel device (`-feature VirtioMouse`) removes the per-display touch devices
-  and must never be enabled.
+- Mouse-wheel and trackpad scrolling → Android mouse `ACTION_SCROLL`
+  (`SOURCE_MOUSE`) on the window's logical display, injected by the
+  long-running `ScrollInjector` guest helper (see "Secondary-display input
+  method routing"). `ScrollChannel` feeds it one line per event over a single
+  `adb shell` and restarts it if it dies. The emulator's `injectWheel` is
+  dropped on the phone image, and the only way to get a wheel device
+  (`-feature VirtioMouse`) removes the per-display touch devices and must never
+  be enabled.
+- Scroll is never a touch. A synthesised drag becomes a click wherever no
+  scroll container intercepts it: content that fits, a horizontal swipe over a
+  vertical list row, a ViewPager below its 16 dp paging slop. Views cancel a
+  click only on a parent's `ACTION_CANCEL` or when the finger leaves their
+  bounds, and the emulator touch API cannot send a cancel. Scrolling does not
+  move keyboard focus either.
+- `ScrollConverter` maps a wheel line to one Android notch (axis 1.0 = the
+  stock 64 dp `config_verticalScrollFactor`). Precise trackpad deltas become
+  display pixels divided by that factor, so standard scroll containers track
+  the fingers 1:1. Only whole pixels are sent; RecyclerView truncates
+  `axis × factor`, so the remainder carries over and a 0.01 px bias absorbs
+  float error. macOS momentum events supply the fling. Views that ignore
+  `ACTION_SCROLL` (e.g. a Material collapsing app bar, pull-to-refresh, the
+  legacy ViewPager) do not react, as with a physical mouse on Android.
 - Right-click is unmapped by default.
 
 ### 5.4 Keyboard and focus
@@ -652,7 +669,10 @@ bundled in MandroidKit. Rebuild with `Scripts/gen-guest-display.sh` (JDK 17 and
 `D8` pointing to Android build-tools 36.1.0, and `ANDROID_JAR` pointing to
 an installed platform android.jar). The same JAR includes `RenderAppIcon`,
 which loads the launcher activity icon through Android PackageManager and
-renders it to PNG. Runtime users need no Java or Android build tools.
+renders it to PNG, and `ScrollInjector`, which stays running and turns
+`display x y vscroll hscroll` lines on stdin into mouse `ACTION_SCROLL`
+events through `InputManagerGlobal.injectInputEvent`. Runtime users need no
+Java or Android build tools.
 
 ### Native media volume
 

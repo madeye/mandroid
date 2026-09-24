@@ -88,10 +88,19 @@ final class AppWindowController: NSWindowController, NSWindowDelegate {
         let (w, h) = pixelSize
         frameView.displayWidth = w
         frameView.displayHeight = h
+        switch target {
+        case .app(let app): frameView.displayDpi = app.slot.dpi
+        case .device: frameView.displayDpi = coordinator.session?.deviceDpi ?? 320
+        }
         frameView.onTouch = { [weak self] x, y, id, pressure in
             guard let self, !isParked, !isClosing, let session = coordinator.session else { return }
             let display = emulatorDisplay
             Task { await session.input.touch(display: display, x: x, y: y, identifier: id, pressure: pressure) }
+        }
+        frameView.onScroll = { [weak self] x, y, axes in
+            guard let self, !isParked, !isClosing, let session = coordinator.session else { return }
+            let display = androidDisplayID
+            Task { await session.scroll.scroll(displayID: display, x: x, y: y, axes: axes) }
         }
         frameView.onFirstTouch = { [weak self] in
             guard let self, !isParked, !isClosing, let session = coordinator.session else { return }

@@ -253,7 +253,8 @@ public final class RunnerCoordinator {
 
             let session = EmulatorSession(
                 options: options, process: process, adb: adb, connection: connection, client: client,
-                displays: pool, input: InputChannel(client: client), router: InputRouter(adb: adb),
+                displays: pool, input: InputChannel(client: client), scroll: ScrollChannel(adb: adb),
+                router: InputRouter(adb: adb),
                 frames: GRPCFrameStream(client: client),
                 deviceWidth: config.lcdWidth, deviceHeight: config.lcdHeight, deviceDpi: config.lcdDensity)
             var sync: ClipboardSync?
@@ -267,6 +268,7 @@ public final class RunnerCoordinator {
                 throw CancellationError()
             }
             self.session = session
+            Task { await session.scroll.start() }
             self.catalog = AppCatalog(paths: paths, adb: adb, mirrors: RunnerSettings.load().mirrors)
             self.clipboard = sync
             state = .ready
@@ -305,6 +307,7 @@ public final class RunnerCoordinator {
             await clipboard?.stop()
             clipboard = nil
             await session.input.close()
+            await session.scroll.close()
             session.connection.shutdown()
             await session.adb.killServer()
             guard self.session?.process === session.process else { return }
@@ -348,6 +351,7 @@ public final class RunnerCoordinator {
         await clipboard?.stop()
         clipboard = nil
         await session.input.close()
+        await session.scroll.close()
         try? await session.displays.reset()
         // A subsequent boot may bypass the snapshot (including stock → root).
         // Flush Android's filesystem cache before QEMU exits so recent writes

@@ -54,21 +54,62 @@ import Testing
     }
 }
 
-@Suite struct ScrollGestureTests {
-    @Test func downMoveUp() {
-        var g = ScrollGesture(displayWidth: 800, displayHeight: 1600)
-        let first = g.scroll(atX: 400, y: 800, dx: 0, dy: -30)
-        #expect(first == [.down(x: 400, y: 800), .move(x: 400, y: 770)])
-        #expect(g.scroll(atX: 999, y: 999, dx: 0, dy: -30) == [.move(x: 400, y: 740)])
-        #expect(g.end() == .up(x: 400, y: 740))
-        #expect(g.end() == nil)
+@Suite struct ScrollConverterTests {
+    @Test func factorMatchesViewConfiguration() {
+        #expect(ScrollConverter(dpi: 160).factor == 64)
+        #expect(ScrollConverter(dpi: 320).factor == 128)
+        #expect(ScrollConverter(dpi: 420).factor == 168)
+        #expect(ScrollConverter(dpi: 213).factor == 85)   // 85.2 rounds like getDimensionPixelSize
     }
 
-    @Test func liftsAtEdge() {
-        var g = ScrollGesture(displayWidth: 800, displayHeight: 1600)
-        let out = g.scroll(atX: 400, y: 20, dx: 0, dy: -50)
-        #expect(out.last == .up(x: 400, y: 0))
-        #expect(!g.isActive)
+    @Test func wheelLineIsOneAndroidNotch() throws {
+        var c = ScrollConverter(dpi: 420)
+        let downAxes = c.convert(dx: 0, dy: -1, precise: false)
+        let down = try #require(downAxes)
+        #expect(abs(down.vertical + 1) < 0.001)
+        #expect(down.horizontal == 0)
+        let upAxes = c.convert(dx: 0, dy: 1, precise: false)
+        let up = try #require(upAxes)
+        #expect(abs(up.vertical - 1) < 0.001)
+    }
+
+    @Test func signsFollowAppKitContentDirection() throws {
+        var c = ScrollConverter(dpi: 320)
+        // Content moving down/right in AppKit = +VSCROLL / -HSCROLL in Android.
+        let aAxes = c.convert(dx: 10, dy: 10, precise: true)
+        let a = try #require(aAxes)
+        #expect(a.vertical > 0 && a.horizontal < 0)
+        let bAxes = c.convert(dx: -10, dy: -10, precise: true)
+        let b = try #require(bAxes)
+        #expect(b.vertical < 0 && b.horizontal > 0)
+    }
+
+    @Test func subPixelDeltasCarryOver() throws {
+        var c = ScrollConverter(dpi: 320)
+        #expect(c.convert(dx: 0, dy: 0.4, precise: true) == nil)
+        #expect(c.convert(dx: 0, dy: 0.4, precise: true) == nil)
+        let aAxes = c.convert(dx: 0, dy: 0.4, precise: true)
+        let a = try #require(aAxes)
+        #expect(Int(Float(a.vertical) * 128) == 1)
+        #expect(c.convert(dx: 0, dy: 0, precise: true) == nil)
+    }
+
+    /// RecyclerView truncates `axis × factor`; ScrollView and ListView round.
+    /// Either way Android must move exactly the pixels we sent.
+    @Test(arguments: [120, 160, 213, 240, 320, 420, 480, 560, 640])
+    func androidMovesExactPixels(dpi: Int) {
+        var c = ScrollConverter(dpi: dpi)
+        let factor = Float(c.factor)
+        for px in 1...400 {
+            for sign in [1.0, -1.0] {
+                guard let a = c.convert(dx: 0, dy: sign * Double(px), precise: true) else {
+                    Issue.record("no event for \(px) px"); return
+                }
+                let moved = Float(a.vertical) * factor
+                #expect(Int(moved) == Int(sign) * px)
+                #expect(Int(moved.rounded()) == Int(sign) * px)
+            }
+        }
     }
 }
 

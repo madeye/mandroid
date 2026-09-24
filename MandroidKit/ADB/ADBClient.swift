@@ -133,6 +133,23 @@ public actor ADBClient {
         return png
     }
 
+    /// Starts the `ScrollInjector` helper; each line written to it becomes
+    /// an Android mouse ACTION_SCROLL (see `ScrollChannel`).
+    func startScrollInjector() async throws -> ShellPipe {
+        try await deployGuestHelper()
+        let pipe = ShellPipe(executable: binary, arguments: [
+            "-P", String(serverPort), "-s", serial, "shell", "-T",
+            "CLASSPATH=/data/local/tmp/mandroid-display-ime.jar app_process / ScrollInjector",
+        ], environment: environment)
+        do {
+            try await pipe.start(readyLine: "scroll-ready", timeout: .seconds(15))
+        } catch {
+            pipe.stop()
+            throw error
+        }
+        return pipe
+    }
+
     private func deployGuestHelper() async throws {
         let guestPath = "/data/local/tmp/mandroid-display-ime.jar"
         if !displayHelperDeployed {
