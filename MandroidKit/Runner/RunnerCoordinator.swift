@@ -50,7 +50,8 @@ public final class RunnerCoordinator {
     /// One owner for Settings and boot requests; shutdown cancels and drains it.
     public func prepareKernelSU() async throws -> KernelSUPatcher.Prepared {
         if let kernelSUPreparation { return try await kernelSUPreparation.value }
-        guard let image = bootstrap.installedSystemImage() else {
+        let settings = RunnerSettings.load()
+        guard let image = systemImage(for: settings.systemImageTag) else {
             throw MandroidKitError.avd("Install a system image before preparing KernelSU.")
         }
         preparingKernelSU = true
@@ -58,8 +59,9 @@ public final class RunnerCoordinator {
         let generation = UUID()
         kernelSUGeneration = generation
         let patcher = KernelSUPatcher(paths: paths)
+        let allowShell = settings.captureCertificateEnabled
         let task = Task {
-            try await patcher.prepare(imageDirectory: image.directory) { text in
+            try await patcher.prepare(imageDirectory: image.directory, allowShell: allowShell) { text in
                 await MainActor.run {
                     if self.kernelSUGeneration == generation { self.kernelSUStatus = text }
                 }
@@ -108,8 +110,11 @@ public final class RunnerCoordinator {
                 await boot(coldBoot: false, isRetry: false)
             } else {
                 do {
-                    await bootstrap.setMirrors(RunnerSettings.load().mirrors)
-                    let plan = try await bootstrap.makePlan()
+                    let settings = RunnerSettings.load()
+                    await bootstrap.setMirrors(settings.mirrors)
+                    // Setup installs the image the boot will ask for, so a
+                    // non-default tag never ends up with the other one.
+                    let plan = try await bootstrap.makePlan(tag: settings.systemImageTag)
                     try Task.checkCancellation()
                     if plan.isEmpty {
                         await boot(coldBoot: false, isRetry: false)
@@ -160,6 +165,14 @@ public final class RunnerCoordinator {
         state = .booting(s)
     }
 
+    /// The installed image a session should use. Always matched by tag: with two
+    /// tags installed at the same API level, the untagged lookup cannot tell
+    /// `google_apis` from `google_apis_playstore`, so the selected tag would be
+    /// ignored for the default one.
+    private func systemImage(for tag: String) -> (packagePath: String, directory: URL)? {
+        bootstrap.installedSystemImage(tag: tag)
+    }
+
     public func boot(coldBoot: Bool = false) async {
         if let bootTask { await bootTask.value; return }
         let task = Task { await boot(coldBoot: coldBoot, isRetry: false) }
@@ -175,12 +188,14 @@ public final class RunnerCoordinator {
         do {
             try Task.checkCancellation()
             setStage("Preparing virtual device")
-            guard let image = bootstrap.installedSystemImage() else {
-                throw MandroidKitError.avd("no system image installed")
+            let settings = RunnerSettings.load()
+            guard let image = systemImage(for: settings.systemImageTag) else {
+                throw MandroidKitError.avd(settings.systemImageTag == SDKBootstrap.defaultTag
+                    ? "no system image installed"
+                    : "no \(settings.systemImageTag) system image installed. Download it in Settings ▸ Files.")
             }
             var config = AVDConfig(systemImagePath: image.packagePath)
             config.name = avdName
-            let settings = RunnerSettings.load()
             settings.apply(to: &config)
             var kernelSU: KernelSUPatcher.Prepared?
             if settings.kernelSUEnabled {
@@ -241,6 +256,7 @@ public final class RunnerCoordinator {
                 kernelSUStatus = "KernelSU 3.3.0 is active (kernel 32601). Manage root access in KernelSU Manager."
             }
             await GuestSetup.apply(adb: adb)
+            await reapplyWritableSystemCertificate(adb: adb, options: options)
             await restoreAppProxies(adb: adb)
             if let volume = RunnerSettings.load().mediaVolumePercent {
                 do { _ = try await adb.setMediaVolume(percent: volume) }
@@ -296,6 +312,34 @@ public final class RunnerCoordinator {
                 return
             }
             state = .failed(message)
+        }
+    }
+
+    /// Rebuilds the runtime store a recorded writable-system certificate needs
+    /// on a session that has just booted. The entry itself survives on the
+    /// AVD's system image, the binds over the store do not, so the script left
+    /// in the guest has to run again. The session starts with a plain shell
+    /// until the daemon is asked for root, and the store is only rebuilt from
+    /// root, so the daemon is switched first and the capabilities then say
+    /// whether the rebuild can go ahead. Nothing happens when the record, the
+    /// session's launch options or the feature say otherwise; a failure is
+    /// logged and leaves the record for the next boot.
+    private func reapplyWritableSystemCertificate(adb: ADBClient, options: EmulatorLaunchOptions) async {
+        guard let installation = try? CaptureCertificateStore(root: paths.root).load() else { return }
+        let settings = RunnerSettings.load()
+        guard WritableSystemInjector.wantsReapply(installation, launchOptions: options,
+                                                  captureCertificateEnabled: settings.captureCertificateEnabled) else { return }
+        let injector = WritableSystemInjector()
+        let capabilities = await injector.activateRoot(adb: adb)
+        guard WritableSystemInjector.shouldReapply(installation, launchOptions: options,
+                                                   captureCertificateEnabled: settings.captureCertificateEnabled,
+                                                   capabilities: capabilities) else { return }
+        do {
+            try await injector.reapply(installation, adb: adb)
+            Log.file("rebuilt the capture certificate store for \(installation.fileName)", paths: paths)
+        } catch {
+            Log.runner.warning("capture certificate store rebuild failed: \(error.localizedDescription)")
+            Log.file("capture certificate store rebuild failed: \(error.localizedDescription)", paths: paths)
         }
     }
 

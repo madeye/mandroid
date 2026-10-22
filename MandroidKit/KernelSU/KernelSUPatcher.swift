@@ -32,6 +32,22 @@ public struct KernelSUPatcher: Sendable {
         let stockRamdiskHash: String
         let patchedHash: String
         let guestToolHash: String
+        let allowShell: Bool
+    }
+
+    /// A patch built with shell root serves a different purpose from a plain
+    /// one, so the two never share a cache directory.
+    public static func cacheDirectoryName(version: String, kernelHash: String, stockHash: String, allowShell: Bool) -> String {
+        let base = "v\(version)-\(kernelHash)-\(stockHash)"
+        return allowShell ? base + "-shell" : base
+    }
+
+    /// Whether a prepared ramdisk came from a patch built with shell root. The
+    /// cache directory name is where that choice is recorded on disk, so a
+    /// running session's ramdisk answers for the patch it was booted from.
+    public static func allowsShell(ramdisk: URL?) -> Bool {
+        guard let ramdisk else { return false }
+        return ramdisk.deletingLastPathComponent().lastPathComponent.hasSuffix("-shell")
     }
 
     public init(paths: SDKPaths) {
@@ -77,7 +93,10 @@ public struct KernelSUPatcher: Sendable {
     }
 
     /// The coordinator coalesces concurrent callers into one cancellable task.
-    public func prepare(imageDirectory: URL, progress: @Sendable (String) async -> Void) async throws -> Prepared {
+    /// `allowShell` grants the ADB shell root on the patched ramdisk, which the
+    /// certificate installer needs to write the guest trust store.
+    public func prepare(imageDirectory: URL, allowShell: Bool,
+                        progress: @Sendable (String) async -> Void) async throws -> Prepared {
         let fm = FileManager.default
         let kernel = imageDirectory.appendingPathComponent("kernel-ranchu")
         let stock = imageDirectory.appendingPathComponent("ramdisk.img")
@@ -110,9 +129,11 @@ public struct KernelSUPatcher: Sendable {
             // Only verified bytes replace a cached download.
             try Data(contentsOf: temporary).write(to: destination, options: .atomic)
         }
-        let final = root.appendingPathComponent("v\(Self.version)-\(kernelHash)-\(stockHash)", isDirectory: true)
+        let final = root.appendingPathComponent(Self.cacheDirectoryName(version: Self.version, kernelHash: kernelHash,
+                                                                       stockHash: stockHash, allowShell: allowShell),
+                                                isDirectory: true)
         let manager = assetsDirectory.appendingPathComponent(Self.assets[3].name)
-        if Self.validCache(at: final, kernelHash: kernelHash, stockHash: stockHash) {
+        if Self.validCache(at: final, kernelHash: kernelHash, stockHash: stockHash, allowShell: allowShell) {
             return Prepared(ramdisk: final.appendingPathComponent("ramdisk.img"), manager: manager,
                             guestTool: final.appendingPathComponent("ksud-android"))
         }
@@ -124,10 +145,12 @@ public struct KernelSUPatcher: Sendable {
         try fm.copyItem(at: stock, to: input)
         let tool = assetsDirectory.appendingPathComponent(Self.assets[0].name)
         try fm.setAttributes([.posixPermissions: 0o755], ofItemAtPath: tool.path)
-        _ = try await Self.run(tool, ["boot-patch", "--ramdisk", "-b", input.path,
+        var patchArguments = ["boot-patch", "--ramdisk", "-b", input.path,
             "-m", assetsDirectory.appendingPathComponent(Self.assets[2].name).path,
             "-i", assetsDirectory.appendingPathComponent(Self.assets[1].name).path,
-            "--kmi", "android16-6.12", "-o", staging.path, "--out-name", "ramdisk.img"])
+            "--kmi", "android16-6.12", "-o", staging.path, "--out-name", "ramdisk.img"]
+        if allowShell { patchArguments.append("--allow-shell") }
+        _ = try await Self.run(tool, patchArguments)
         let guest = try await Self.run(URL(fileURLWithPath: "/usr/bin/unzip"), ["-p", manager.path, "lib/arm64-v8a/libksud.so"])
         guard !guest.stdout.isEmpty else { throw Failure("The Manager APK has no ARM64 helper.") }
         let guestTool = staging.appendingPathComponent("ksud-android")
@@ -137,7 +160,7 @@ public struct KernelSUPatcher: Sendable {
             throw Failure("The system image changed while patching. Retry preparing the image.")
         }
         let manifest = Manifest(version: Self.version, kernelHash: kernelHash, stockRamdiskHash: stockHash,
-                                patchedHash: outputHash, guestToolHash: try Self.hash(guestTool))
+                                patchedHash: outputHash, guestToolHash: try Self.hash(guestTool), allowShell: allowShell)
         try JSONEncoder().encode(manifest).write(to: staging.appendingPathComponent("manifest.json"), options: .atomic)
         try fm.removeItem(at: input)
         try Task.checkCancellation()
@@ -148,10 +171,11 @@ public struct KernelSUPatcher: Sendable {
                         guestTool: final.appendingPathComponent("ksud-android"))
     }
 
-    static func validCache(at directory: URL, kernelHash: String, stockHash: String) -> Bool {
+    static func validCache(at directory: URL, kernelHash: String, stockHash: String, allowShell: Bool) -> Bool {
         guard let bytes = try? Data(contentsOf: directory.appendingPathComponent("manifest.json")),
               let manifest = try? JSONDecoder().decode(Manifest.self, from: bytes),
               manifest.version == version, manifest.kernelHash == kernelHash, manifest.stockRamdiskHash == stockHash,
+              manifest.allowShell == allowShell,
               (try? hash(directory.appendingPathComponent("ramdisk.img"))) == manifest.patchedHash,
               (try? hash(directory.appendingPathComponent("ksud-android"))) == manifest.guestToolHash else { return false }
         return true
@@ -171,7 +195,8 @@ public struct KernelSUPatcher: Sendable {
             try await adb.install(apk: prepared.manager)
         }
         // Opening the official Manager installs its userspace daemon. Root
-        // grants remain under the user's control in Manager; shell is not granted.
+        // grants remain under the user's control in Manager; shell root, when
+        // the ramdisk was patched for it, comes from the boot image instead.
         guard let component = try await adb.launcherComponent(of: Self.managerPackage) else {
             throw Failure("Could not open KernelSU Manager.")
         }

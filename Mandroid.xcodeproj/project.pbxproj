@@ -11,24 +11,34 @@
 		042A528ECE7E1A97BEF0C932 /* CatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE44AA57BFC4862E28A97484 /* CatalogTests.swift */; };
 		05874F1DF6A7CD0C4834B90C /* DeviceProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038F5C78A86CE57B44C749F /* DeviceProfile.swift */; };
 		05D232786974587E475E9966 /* DebugHooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B147EB246CA2F3A3C58614 /* DebugHooks.swift */; };
+		0C9DE5409AEF3F62E715D872 /* GuestTrustStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676DB9C812A2C2AFFB56962F /* GuestTrustStoreTests.swift */; };
 		0E75B38D62999361CD23C292 /* RunnerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3193E87696207FEEEFD9B8C5 /* RunnerSettings.swift */; };
 		14FDE1899EA56133607735BA /* aapt2-maven-metadata.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7E6C6EC4702A6E611DFB62D7 /* aapt2-maven-metadata.xml */; };
 		1626921543146C6FA82F81D6 /* DisplaySlotPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF6F4D274615104B6710401 /* DisplaySlotPool.swift */; };
 		1B4D8CE7D085F87F5AAA3BD0 /* MandroidKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E3EBD02845AA73DAB1A6BEF8 /* MandroidKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B9150A0EB83F74AF90019E1 /* CaptureCertificateControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDD56CD517F9010B910606C /* CaptureCertificateControllerTests.swift */; };
 		1CF4FDF17FF6A91548BFA798 /* DisplaySlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C8671D0B85CE579655886 /* DisplaySlot.swift */; };
 		201AD07F1E27F9E63ACB2867 /* sys-img2-3-google_apis_playstore.xml in Resources */ = {isa = PBXBuildFile; fileRef = 837A9A0CE90A9279D60ABFAA /* sys-img2-3-google_apis_playstore.xml */; };
 		221603328B62AEFB3691A66E /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C35D89238057FA9E32103 /* SetupView.swift */; };
+		229138E8FC14E24791295BA2 /* test-ca.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0B3B3D58381D413C7713EE0F /* test-ca.pem */; };
 		238AA060FA11039EAB0081ED /* dumpsys-display-3secondary.txt in Resources */ = {isa = PBXBuildFile; fileRef = B46C6E1A317C1DB9D1BEC272 /* dumpsys-display-3secondary.txt */; };
+		2455DF0F229E0E4D4A08514E /* WritableSystemInjectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C708788B125B9DCC6EEFDF1 /* WritableSystemInjectorTests.swift */; };
+		24E58D20408231246634DD46 /* KernelSUModuleInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920378B7FD0EA3C0E7391FF /* KernelSUModuleInjector.swift */; };
 		2591AC4E8C1926C76EC06C0D /* RunnerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5C06B40C73CFB7A58BF53B /* RunnerState.swift */; };
 		26596DADD30E895238D979E1 /* MandroidKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3EBD02845AA73DAB1A6BEF8 /* MandroidKit.framework */; };
+		26DBB5FEBC2C27FB1EE4599F /* CaptureCertificateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C65C9684112751567F7BAB /* CaptureCertificateTests.swift */; };
 		2783D70BFCB87F36B034DAFD /* ScrollChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A02C3698E757F2C4C47096 /* ScrollChannel.swift */; };
 		2956E519FF7E58F0CAB5E537 /* dumpsys-display-0only.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E22BE59D5B4E341E083891B /* dumpsys-display-0only.txt */; };
 		2B01A437E721A3566272BD44 /* ADBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C65349DBB2EA8395C63E55 /* ADBClient.swift */; };
+		2B6A9850417995B5BD8D079C /* CertificateAuthorityResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDDF5470531BD8A2E6F2274 /* CertificateAuthorityResolverTests.swift */; };
 		2E8224C18133B6A58DDE0E24 /* proxy-agent.apk in Resources */ = {isa = PBXBuildFile; fileRef = 7989D6ECDD251AAA5E517B89 /* proxy-agent.apk */; };
 		308932A4547F01DC338B9327 /* AppProxyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3D8D73C25821980720D7F /* AppProxyTests.swift */; };
+		30D26FBC50CC17A7C3F6449B /* CertificateAuthorityResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DDEE37F17CA9338C7026D8 /* CertificateAuthorityResolver.swift */; };
 		32F0B027B070531C81B156BF /* KernelSUPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DDF05B4DD2F5D50AEEB2D7 /* KernelSUPatcher.swift */; };
 		32FB224EE27EAD34F6D50934 /* LauncherStubBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA57E57B95AE22134C1E9C8 /* LauncherStubBuilder.swift */; };
 		33A7D28766027E7C46687D3F /* Subprocess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26B1DC044AE793A2CA9408 /* Subprocess.swift */; };
+		33AD2256056A5BF4978035E9 /* GuestTrustStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCADB00852120776BD29C93 /* GuestTrustStore.swift */; };
+		34994EF2CB2CAB688464106A /* WritableSystemInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65FC59A8A992B5A2CDADC85 /* WritableSystemInjector.swift */; };
 		34DCBE5B97CD020796A1351F /* AppWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA50087CE3FCBA56353A14 /* AppWindowController.swift */; };
 		3527AAD84254AF8D34B7EEB6 /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80179973E7A67D4C1D77F184 /* FrameView.swift */; };
 		36C9FD8CA5994BB3814D6165 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF930F7161F1DCE323E31A4B /* MainMenu.swift */; };
@@ -37,16 +47,20 @@
 		3E2808F8E2220D9787390C22 /* AppMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094A6E1BC089B2693B13E3E /* AppMigrationTests.swift */; };
 		400DF40E5CA1F033D0C6024A /* GRPCFrameStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3112787BCD2CFEB6E6A41B16 /* GRPCFrameStream.swift */; };
 		407A8753EE4BABD7F642049B /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6811683DF5318ABF587E2333 /* Fixtures.swift */; };
+		40B6888499C352BB67DCF117 /* CaptureCertificateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E1A24D195175547FB1A1 /* CaptureCertificateController.swift */; };
 		41BAA771990606C4529171BC /* ParkedOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE4A7E717C8676F19AF5A01 /* ParkedOverlayView.swift */; };
 		446CFC09E215508235EF61BA /* APKBadging.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22C4002AC149141CE2CCFEA /* APKBadging.swift */; };
 		469D5D4A324C60D0952848A0 /* ADBClient+AppProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6332F07ED146B775935E59 /* ADBClient+AppProxy.swift */; };
+		4AA858F7BA813146E13AF22B /* KernelSUModuleInjectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916EAB7B84DDF6D661C54135 /* KernelSUModuleInjectorTests.swift */; };
 		4CC46AA221A6EC77BCBB285C /* RunnerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BF2F8305C02F1E8E553ECE /* RunnerCoordinator.swift */; };
 		4F1A02EE0DB0CA2E4820E00D /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34C727643E7E72B325A772 /* Frame.swift */; };
 		4FF890186A809726BAAF7FC2 /* AppMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFDF475DAD0EB0CACFD2245 /* AppMigration.swift */; };
 		512E94E7822481A2E4C2EC1F /* repository2-3.xml in Resources */ = {isa = PBXBuildFile; fileRef = D34956E2C8525B2923BD5DB9 /* repository2-3.xml */; };
+		51349E0315EC6F36D730BBF1 /* ProxyProbeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E3FC3D61A0DE4B5AC00F83 /* ProxyProbeTests.swift */; };
 		52624FADADB0BC7C839C61B4 /* LibraryWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB8014AB35C738E335559BD /* LibraryWindowController.swift */; };
 		5414AC4FF4CA8F8C8ECC2177 /* MandroidKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3EBD02845AA73DAB1A6BEF8 /* MandroidKit.framework */; };
 		544D132385DFD21F85F22A82 /* RepositoryManifestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0026E3FBD96D348C57055D /* RepositoryManifestTests.swift */; };
+		5707FDB3DE5C08E0A5A4BE60 /* CertificateInjectorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A9A296EAE6267FD1392BA9 /* CertificateInjectorFactory.swift */; };
 		587B50F4C78DFE79DFC8BEF2 /* MediaVolumeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8606B63E97ACE543CFD3493 /* MediaVolumeTests.swift */; };
 		5E9630B0793E9BB67881AF88 /* KeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3873AFE57EB00977EA7D31 /* KeyMap.swift */; };
 		5EBBC948AC1CF7D430323F8D /* EmulatorClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624282BC5C68C313873805CF /* EmulatorClient.swift */; };
@@ -54,6 +68,7 @@
 		6841C93EDB9A04236B33FA2C /* SDKBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0474DE5D80286AB4EFFC76CB /* SDKBootstrap.swift */; };
 		6968875561F06E48324AB93C /* PortAllocatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F844F828334E854BE651303 /* PortAllocatorTests.swift */; };
 		69828A20E8FC79307F7B3A9E /* aapt2-badging-shadowsocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1112FF2A97D0DA989EEA2428 /* aapt2-badging-shadowsocks.txt */; };
+		6A55A88AA22ED8D958BDB316 /* CaptureCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C9A959F17BF808285BB8D2 /* CaptureCertificate.swift */; };
 		6DC9A901C87D8826C8D92CF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A060D4CAD73DA56209C2447 /* AppDelegate.swift */; };
 		6E4030E4FF2028250F1AD9B5 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8B90226F41696CAD5B920D1F /* AppIcon.icon */; };
 		6E665EC43F8884619B5C7EE3 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC27965EAAF15BDD04A12AFD /* SHA1.swift */; };
@@ -64,18 +79,23 @@
 		763AB37F01BD333C36956296 /* SDKPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D06550EAA0A96BB8CB36BC /* SDKPaths.swift */; };
 		7700A4B60AEF1DB5DC123672 /* dumpsys-display-1secondary.txt in Resources */ = {isa = PBXBuildFile; fileRef = C163D4A3B4515AECBAC00BD2 /* dumpsys-display-1secondary.txt */; };
 		78B50525F4B22DD63646A684 /* KernelSUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76786C4CB12B3475CC4DE318 /* KernelSUTests.swift */; };
+		7ACA374D6FCB2E8002825EBB /* test-leaf.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0B81BF8A161C0E64866F990D /* test-leaf.pem */; };
 		7AE0BF2997499CBC7BD4B223 /* HTTPProxyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA9A484A063F185D0AD4420 /* HTTPProxyEndpoint.swift */; };
+		7CE9984B42DFD6627C381290 /* CertificateChainChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BE8129A4D87F0BB4A06BF5 /* CertificateChainChecker.swift */; };
 		7E59DA6309CF5C31315A296E /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80179973E7A67D4C1D77F184 /* FrameView.swift */; };
 		820B8C8D33AA97A29C83B088 /* MandroidKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E3EBD02845AA73DAB1A6BEF8 /* MandroidKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83D81BA5FBAEE3A77582AADD /* GuestSessionCapabilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4358345961A9BBB25BEBC /* GuestSessionCapabilitiesTests.swift */; };
 		84538782C4DCD2DB0AB6EB68 /* AVDConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A2D91E25EFC7A1E2703034 /* AVDConfig.swift */; };
 		875091EB49C033602956E670 /* GuestSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFD778394E844C309B038E7 /* GuestSetup.swift */; };
 		88D0F14A0F862C3C8E186765 /* SetupWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB3548E919B9B9C44A7761 /* SetupWindowController.swift */; };
 		8B721CD8AD02413A7D7A3993 /* EmulatorSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC3E1C9F8EC238BF2D4E83F /* EmulatorSession.swift */; };
+		8BDAA2E37C8F07BEF6927774 /* CaptureCertificateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1ECF00086E5ABDFAB13AD1 /* CaptureCertificateStore.swift */; };
 		8D4ED6A726DA7E4EAAAE88B0 /* IconExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A577EDF958CD6BFC2A38D77 /* IconExtractor.swift */; };
 		8F073A81288670F1E64D2A72 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDC728FEC8C95305485F555 /* Log.swift */; };
 		91BB969566A9EDE012EC6A97 /* ShellPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF262C36D42DC4E11E1FA2 /* ShellPipe.swift */; };
 		95B4D81D941F24D9F6F6E6D3 /* DebugRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B597A920FF3617F9050114B /* DebugRecorder.swift */; };
 		96176E04B147D3AC91814212 /* DumpsysDisplayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11E38C038FB4B3588521DD2 /* DumpsysDisplayParser.swift */; };
+		96ED3CDE7D8F989E02D8DC4E /* CertificateChainCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86844D828E6BA4390CFE5E28 /* CertificateChainCheckerTests.swift */; };
 		9B24B15DA44DF7AB251444C6 /* MediaVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759F9FA0196823EB903E42BC /* MediaVolume.swift */; };
 		9E377C462F430226BDAF01C2 /* guest-display.jar in Resources */ = {isa = PBXBuildFile; fileRef = 1B295493DF380A14E7678370 /* guest-display.jar */; };
 		A1101A652D2B25AB5185E29C /* URLSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB937303F6A23EDA3C41AFEE /* URLSchemeHandler.swift */; };
@@ -86,12 +106,14 @@
 		B2178D9D29C8F1F02D7F5DB5 /* PasteboardClipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F68DF1547E8385DD5C111B /* PasteboardClipboard.swift */; };
 		B2DA180DC86E66C5C044B049 /* GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 17B27CC7ECC0679E3B7D1E78 /* GRPCCore */; };
 		B84370C1FA055B031EC1EA83 /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F637DED923589D2EA7A4D /* WindowManager.swift */; };
+		BB9B45FBB3B4524D368C7318 /* GuestSessionCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0D7E5F3301BBAFCA3E6409 /* GuestSessionCapabilities.swift */; };
 		BE7BB2EA4A9B4702690989EC /* AppCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83297A94905C8AB9B23F9C3 /* AppCatalog.swift */; };
 		BF15DBC4080E020931218EA2 /* FrameViewInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480828E2216330A480DAB98 /* FrameViewInputTests.swift */; };
 		C74B91BD02E590AA9175CEFB /* AppProxyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696C8B2F08DE35734A372F0 /* AppProxyView.swift */; };
 		C799C337A2138CB133871FA2 /* GRPCProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = D0A6D278C7A47F529FEE5404 /* GRPCProtobuf */; };
 		CC755A8A5F49632A6287CAD5 /* HostDevicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDDC17B8230D60798FA257 /* HostDevicesTests.swift */; };
 		CDE305331380AF7CBD85F64C /* Unarchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452642B45534C755FF9E3CC4 /* Unarchiver.swift */; };
+		CE52FE8CBC3AA03C0465C90D /* SystemImageSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AC18630812D5298AA829B /* SystemImageSelectionTests.swift */; };
 		CF35185F02907A5A670B5C2A /* ScrollConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98537234E536D097055E8F0D /* ScrollConverter.swift */; };
 		D0AD9DA64E84B6D390110921 /* UITestMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6779B6FF861E9BD4662EA422 /* UITestMode.swift */; };
 		D11CCC1F6AC91DB80A92B9C9 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259DC05229C3C583DD81182C /* LibraryView.swift */; };
@@ -105,16 +127,20 @@
 		E2F27000D2DF19DD22774D22 /* emulator_controller.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C4A646B6236138BB76872 /* emulator_controller.grpc.swift */; };
 		E317A12345EA843B8B97F0C8 /* BootWaiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE16AFF83C05B8F4D2602E88 /* BootWaiter.swift */; };
 		E3238737CA8FBFF6982E86D1 /* GRPCNIOTransportHTTP2 in Frameworks */ = {isa = PBXBuildFile; productRef = 8E354424D0460E0A564243CB /* GRPCNIOTransportHTTP2 */; };
+		E4EE32227883D05F404441B2 /* CertificateInjectorFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5243063650392A275F5A0B4 /* CertificateInjectorFactoryTests.swift */; };
 		E6C833D2D13CBF721F5B9C69 /* ClipboardSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3075A7A523AC3069D82546 /* ClipboardSync.swift */; };
 		E7BE7F27D9002E1CFCE3393C /* CoordinateMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FC82E5A6022D0FD80D1A42 /* CoordinateMapper.swift */; };
 		E8D49C6D72B9D92CAF5DF2BD /* EmulatorConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBE7D716FD2458F5DD3E580 /* EmulatorConnection.swift */; };
 		E8F64179DF7A44BC38D4662B /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E418B7AE15E4E19E586FF /* Downloader.swift */; };
+		EAAB37E1765B48CBAF116152 /* ProxyProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A60CCCF89E572B64C68E28 /* ProxyProbe.swift */; };
 		EC9013947910B9DC38E0C12A /* AVDStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E371D0580A2405FA5D9F861A /* AVDStore.swift */; };
 		EFBFEE050CED03AD2B4E3E41 /* DownloadMirror.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BB7A4A6CDC3A601EB286D4 /* DownloadMirror.swift */; };
 		F04B857900FF2EA320B7B0EA /* GPUBackendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9C4268BD8813AED61B437D /* GPUBackendTests.swift */; };
 		F12B6081F2DF4A0290363E20 /* InputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1592A1AB2261451271FC320C /* InputTests.swift */; };
 		F6A7DC84B7247B1E506DA65D /* AAPT2Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC50724898B32D7CC77A08 /* AAPT2Fetcher.swift */; };
+		F9CB7AC9C5BBC967695B0CAC /* CertificateInjecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75462D3E91DCA917600F9034 /* CertificateInjecting.swift */; };
 		F9CE9BA3584809592025885E /* TaskListParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F57E157A54D12371B3287E5 /* TaskListParser.swift */; };
+		FC5051EC40D3ABE4265B3048 /* other-ca.pem in Resources */ = {isa = PBXBuildFile; fileRef = D318808C880BB008E4219BAB /* other-ca.pem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,8 +188,11 @@
 /* Begin PBXFileReference section */
 		0474DE5D80286AB4EFFC76CB /* SDKBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKBootstrap.swift; sourceTree = "<group>"; };
 		05E3D8D73C25821980720D7F /* AppProxyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppProxyTests.swift; sourceTree = "<group>"; };
+		07BE8129A4D87F0BB4A06BF5 /* CertificateChainChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateChainChecker.swift; sourceTree = "<group>"; };
 		08D361DE1BDD3FCEC2E336DE /* HostStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostStyle.swift; sourceTree = "<group>"; };
 		08F68DF1547E8385DD5C111B /* PasteboardClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardClipboard.swift; sourceTree = "<group>"; };
+		0B3B3D58381D413C7713EE0F /* test-ca.pem */ = {isa = PBXFileReference; path = "test-ca.pem"; sourceTree = "<group>"; };
+		0B81BF8A161C0E64866F990D /* test-leaf.pem */ = {isa = PBXFileReference; path = "test-leaf.pem"; sourceTree = "<group>"; };
 		0CA57E57B95AE22134C1E9C8 /* LauncherStubBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherStubBuilder.swift; sourceTree = "<group>"; };
 		0F844F828334E854BE651303 /* PortAllocatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortAllocatorTests.swift; sourceTree = "<group>"; };
 		0F939B33E5C022C395681A59 /* EmulatorLaunchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorLaunchOptions.swift; sourceTree = "<group>"; };
@@ -171,6 +200,7 @@
 		13A02C3698E757F2C4C47096 /* ScrollChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollChannel.swift; sourceTree = "<group>"; };
 		1592A1AB2261451271FC320C /* InputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTests.swift; sourceTree = "<group>"; };
 		159C4A646B6236138BB76872 /* emulator_controller.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emulator_controller.grpc.swift; sourceTree = "<group>"; };
+		15C9A959F17BF808285BB8D2 /* CaptureCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureCertificate.swift; sourceTree = "<group>"; };
 		16BF2F8305C02F1E8E553ECE /* RunnerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerCoordinator.swift; sourceTree = "<group>"; };
 		1B295493DF380A14E7678370 /* guest-display.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; path = "guest-display.jar"; sourceTree = "<group>"; };
 		1E3075A7A523AC3069D82546 /* ClipboardSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardSync.swift; sourceTree = "<group>"; };
@@ -178,11 +208,17 @@
 		1F57E157A54D12371B3287E5 /* TaskListParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListParser.swift; sourceTree = "<group>"; };
 		22DD162AE710D7293ABAE6DA /* RepositoryManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryManifest.swift; sourceTree = "<group>"; };
 		259DC05229C3C583DD81182C /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		2920378B7FD0EA3C0E7391FF /* KernelSUModuleInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernelSUModuleInjector.swift; sourceTree = "<group>"; };
 		2B6332F07ED146B775935E59 /* ADBClient+AppProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ADBClient+AppProxy.swift"; sourceTree = "<group>"; };
+		2BCADB00852120776BD29C93 /* GuestTrustStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestTrustStore.swift; sourceTree = "<group>"; };
 		2CFC50724898B32D7CC77A08 /* AAPT2Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAPT2Fetcher.swift; sourceTree = "<group>"; };
+		2EB4E1A24D195175547FB1A1 /* CaptureCertificateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureCertificateController.swift; sourceTree = "<group>"; };
 		2F3481CEAFB41E623B50A605 /* AuditRegressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditRegressionTests.swift; sourceTree = "<group>"; };
+		30E3FC3D61A0DE4B5AC00F83 /* ProxyProbeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyProbeTests.swift; sourceTree = "<group>"; };
 		3112787BCD2CFEB6E6A41B16 /* GRPCFrameStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRPCFrameStream.swift; sourceTree = "<group>"; };
 		3193E87696207FEEEFD9B8C5 /* RunnerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerSettings.swift; sourceTree = "<group>"; };
+		33DDEE37F17CA9338C7026D8 /* CertificateAuthorityResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateAuthorityResolver.swift; sourceTree = "<group>"; };
+		34C4358345961A9BBB25BEBC /* GuestSessionCapabilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestSessionCapabilitiesTests.swift; sourceTree = "<group>"; };
 		39DDF05B4DD2F5D50AEEB2D7 /* KernelSUPatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernelSUPatcher.swift; sourceTree = "<group>"; };
 		3B34C727643E7E72B325A772 /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 		3C5C06B40C73CFB7A58BF53B /* RunnerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerState.swift; sourceTree = "<group>"; };
@@ -195,20 +231,26 @@
 		4BB8014AB35C738E335559BD /* LibraryWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryWindowController.swift; sourceTree = "<group>"; };
 		4D6E418B7AE15E4E19E586FF /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		4FFDDC17B8230D60798FA257 /* HostDevicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostDevicesTests.swift; sourceTree = "<group>"; };
+		50A9A296EAE6267FD1392BA9 /* CertificateInjectorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateInjectorFactory.swift; sourceTree = "<group>"; };
 		55DA50087CE3FCBA56353A14 /* AppWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWindowController.swift; sourceTree = "<group>"; };
 		573F637DED923589D2EA7A4D /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		5B1ECF00086E5ABDFAB13AD1 /* CaptureCertificateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureCertificateStore.swift; sourceTree = "<group>"; };
 		5B597A920FF3617F9050114B /* DebugRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRecorder.swift; sourceTree = "<group>"; };
 		5D33770E780457C7F1F097F5 /* GPUBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUBackend.swift; sourceTree = "<group>"; };
 		624282BC5C68C313873805CF /* EmulatorClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorClient.swift; sourceTree = "<group>"; };
 		65FC82E5A6022D0FD80D1A42 /* CoordinateMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateMapper.swift; sourceTree = "<group>"; };
+		676DB9C812A2C2AFFB56962F /* GuestTrustStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestTrustStoreTests.swift; sourceTree = "<group>"; };
 		6779B6FF861E9BD4662EA422 /* UITestMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestMode.swift; sourceTree = "<group>"; };
 		6811683DF5318ABF587E2333 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
 		685C8671D0B85CE579655886 /* DisplaySlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySlot.swift; sourceTree = "<group>"; };
 		6A3873AFE57EB00977EA7D31 /* KeyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMap.swift; sourceTree = "<group>"; };
 		6DE4A7E717C8676F19AF5A01 /* ParkedOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkedOverlayView.swift; sourceTree = "<group>"; };
+		6EDD56CD517F9010B910606C /* CaptureCertificateControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureCertificateControllerTests.swift; sourceTree = "<group>"; };
+		75462D3E91DCA917600F9034 /* CertificateInjecting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateInjecting.swift; sourceTree = "<group>"; };
 		759F9FA0196823EB903E42BC /* MediaVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaVolume.swift; sourceTree = "<group>"; };
 		76786C4CB12B3475CC4DE318 /* KernelSUTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernelSUTests.swift; sourceTree = "<group>"; };
 		782AB065419FE991C79921CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		78C65C9684112751567F7BAB /* CaptureCertificateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureCertificateTests.swift; sourceTree = "<group>"; };
 		7989D6ECDD251AAA5E517B89 /* proxy-agent.apk */ = {isa = PBXFileReference; path = "proxy-agent.apk"; sourceTree = "<group>"; };
 		7A060D4CAD73DA56209C2447 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AABAAC0B4AC9941A2D95201 /* MandroidKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MandroidKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,9 +259,13 @@
 		80F2346B9A7C3DA473E35B9C /* Mandroid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mandroid.entitlements; sourceTree = "<group>"; };
 		837A9A0CE90A9279D60ABFAA /* sys-img2-3-google_apis_playstore.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "sys-img2-3-google_apis_playstore.xml"; sourceTree = "<group>"; };
 		85BB7A4A6CDC3A601EB286D4 /* DownloadMirror.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMirror.swift; sourceTree = "<group>"; };
+		86844D828E6BA4390CFE5E28 /* CertificateChainCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateChainCheckerTests.swift; sourceTree = "<group>"; };
 		8A577EDF958CD6BFC2A38D77 /* IconExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconExtractor.swift; sourceTree = "<group>"; };
 		8B90226F41696CAD5B920D1F /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		8C0D7E5F3301BBAFCA3E6409 /* GuestSessionCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestSessionCapabilities.swift; sourceTree = "<group>"; };
 		8C26B1DC044AE793A2CA9408 /* Subprocess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subprocess.swift; sourceTree = "<group>"; };
+		8C708788B125B9DCC6EEFDF1 /* WritableSystemInjectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritableSystemInjectorTests.swift; sourceTree = "<group>"; };
+		916EAB7B84DDF6D661C54135 /* KernelSUModuleInjectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernelSUModuleInjectorTests.swift; sourceTree = "<group>"; };
 		92A128C67BD4F9AA42264303 /* DeviceProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceProfileTests.swift; sourceTree = "<group>"; };
 		938C35D89238057FA9E32103 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		95AABDC6915A7C99384D3459 /* InputRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputRouter.swift; sourceTree = "<group>"; };
@@ -244,11 +290,15 @@
 		C8D06550EAA0A96BB8CB36BC /* SDKPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKPaths.swift; sourceTree = "<group>"; };
 		C97FCFF669F1D99C5B174E18 /* MandroidKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandroidKitError.swift; sourceTree = "<group>"; };
 		C9A2D91E25EFC7A1E2703034 /* AVDConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVDConfig.swift; sourceTree = "<group>"; };
+		CCDDF5470531BD8A2E6F2274 /* CertificateAuthorityResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateAuthorityResolverTests.swift; sourceTree = "<group>"; };
 		CCFDF475DAD0EB0CACFD2245 /* AppMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMigration.swift; sourceTree = "<group>"; };
 		CDDC728FEC8C95305485F555 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		D11E38C038FB4B3588521DD2 /* DumpsysDisplayParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DumpsysDisplayParser.swift; sourceTree = "<group>"; };
+		D318808C880BB008E4219BAB /* other-ca.pem */ = {isa = PBXFileReference; path = "other-ca.pem"; sourceTree = "<group>"; };
 		D34956E2C8525B2923BD5DB9 /* repository2-3.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "repository2-3.xml"; sourceTree = "<group>"; };
 		D480828E2216330A480DAB98 /* FrameViewInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameViewInputTests.swift; sourceTree = "<group>"; };
+		D4A60CCCF89E572B64C68E28 /* ProxyProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyProbe.swift; sourceTree = "<group>"; };
+		D5243063650392A275F5A0B4 /* CertificateInjectorFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateInjectorFactoryTests.swift; sourceTree = "<group>"; };
 		D696C8B2F08DE35734A372F0 /* AppProxyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppProxyView.swift; sourceTree = "<group>"; };
 		D8606B63E97ACE543CFD3493 /* MediaVolumeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaVolumeTests.swift; sourceTree = "<group>"; };
 		D9850A27EBA910D608B21E5D /* PortAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortAllocator.swift; sourceTree = "<group>"; };
@@ -260,7 +310,9 @@
 		EC27965EAAF15BDD04A12AFD /* SHA1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
 		EE16AFF83C05B8F4D2602E88 /* BootWaiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootWaiter.swift; sourceTree = "<group>"; };
 		F094A6E1BC089B2693B13E3E /* AppMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMigrationTests.swift; sourceTree = "<group>"; };
+		F65FC59A8A992B5A2CDADC85 /* WritableSystemInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritableSystemInjector.swift; sourceTree = "<group>"; };
 		FDF6F4D274615104B6710401 /* DisplaySlotPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySlotPool.swift; sourceTree = "<group>"; };
+		FE2AC18630812D5298AA829B /* SystemImageSelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageSelectionTests.swift; sourceTree = "<group>"; };
 		FF930F7161F1DCE323E31A4B /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		FFFD778394E844C309B038E7 /* GuestSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestSetup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -311,6 +363,7 @@
 				0F939B33E5C022C395681A59 /* EmulatorLaunchOptions.swift */,
 				E7BED9150E46ED563A22EE48 /* EmulatorProcess.swift */,
 				5D33770E780457C7F1F097F5 /* GPUBackend.swift */,
+				8C0D7E5F3301BBAFCA3E6409 /* GuestSessionCapabilities.swift */,
 				FFFD778394E844C309B038E7 /* GuestSetup.swift */,
 				D9850A27EBA910D608B21E5D /* PortAllocator.swift */,
 			);
@@ -325,8 +378,11 @@
 				3E22BE59D5B4E341E083891B /* dumpsys-display-0only.txt */,
 				C163D4A3B4515AECBAC00BD2 /* dumpsys-display-1secondary.txt */,
 				B46C6E1A317C1DB9D1BEC272 /* dumpsys-display-3secondary.txt */,
+				D318808C880BB008E4219BAB /* other-ca.pem */,
 				D34956E2C8525B2923BD5DB9 /* repository2-3.xml */,
 				837A9A0CE90A9279D60ABFAA /* sys-img2-3-google_apis_playstore.xml */,
+				0B3B3D58381D413C7713EE0F /* test-ca.pem */,
+				0B81BF8A161C0E64866F990D /* test-leaf.pem */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -513,6 +569,7 @@
 			children = (
 				54F294439BF0F86A31A06178 /* ADB */,
 				7B2374B4E9CFAF705A1591B8 /* AVD */,
+				D3C43C2BB3817C070E6D3D3E /* Capture */,
 				9EFCD8F6C6C0362513C81793 /* Catalog */,
 				B17D2881FDD5A8D3B1802AA6 /* Client */,
 				B23B7CCB109841EE595FDD25 /* Clipboard */,
@@ -586,21 +643,50 @@
 				F094A6E1BC089B2693B13E3E /* AppMigrationTests.swift */,
 				05E3D8D73C25821980720D7F /* AppProxyTests.swift */,
 				2F3481CEAFB41E623B50A605 /* AuditRegressionTests.swift */,
+				6EDD56CD517F9010B910606C /* CaptureCertificateControllerTests.swift */,
+				78C65C9684112751567F7BAB /* CaptureCertificateTests.swift */,
 				AE44AA57BFC4862E28A97484 /* CatalogTests.swift */,
+				CCDDF5470531BD8A2E6F2274 /* CertificateAuthorityResolverTests.swift */,
+				86844D828E6BA4390CFE5E28 /* CertificateChainCheckerTests.swift */,
+				D5243063650392A275F5A0B4 /* CertificateInjectorFactoryTests.swift */,
 				92A128C67BD4F9AA42264303 /* DeviceProfileTests.swift */,
 				6811683DF5318ABF587E2333 /* Fixtures.swift */,
 				D480828E2216330A480DAB98 /* FrameViewInputTests.swift */,
 				AD9C4268BD8813AED61B437D /* GPUBackendTests.swift */,
+				34C4358345961A9BBB25BEBC /* GuestSessionCapabilitiesTests.swift */,
+				676DB9C812A2C2AFFB56962F /* GuestTrustStoreTests.swift */,
 				4FFDDC17B8230D60798FA257 /* HostDevicesTests.swift */,
 				1592A1AB2261451271FC320C /* InputTests.swift */,
+				916EAB7B84DDF6D661C54135 /* KernelSUModuleInjectorTests.swift */,
 				76786C4CB12B3475CC4DE318 /* KernelSUTests.swift */,
 				D8606B63E97ACE543CFD3493 /* MediaVolumeTests.swift */,
 				96276D7B0CFD82A66CC11112 /* ParserTests.swift */,
 				0F844F828334E854BE651303 /* PortAllocatorTests.swift */,
+				30E3FC3D61A0DE4B5AC00F83 /* ProxyProbeTests.swift */,
 				AD0026E3FBD96D348C57055D /* RepositoryManifestTests.swift */,
+				FE2AC18630812D5298AA829B /* SystemImageSelectionTests.swift */,
+				8C708788B125B9DCC6EEFDF1 /* WritableSystemInjectorTests.swift */,
 				492A92392BD829D1EEAE3EE7 /* Fixtures */,
 			);
 			path = MandroidKitTests;
+			sourceTree = "<group>";
+		};
+		D3C43C2BB3817C070E6D3D3E /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				15C9A959F17BF808285BB8D2 /* CaptureCertificate.swift */,
+				2EB4E1A24D195175547FB1A1 /* CaptureCertificateController.swift */,
+				5B1ECF00086E5ABDFAB13AD1 /* CaptureCertificateStore.swift */,
+				33DDEE37F17CA9338C7026D8 /* CertificateAuthorityResolver.swift */,
+				07BE8129A4D87F0BB4A06BF5 /* CertificateChainChecker.swift */,
+				75462D3E91DCA917600F9034 /* CertificateInjecting.swift */,
+				50A9A296EAE6267FD1392BA9 /* CertificateInjectorFactory.swift */,
+				2BCADB00852120776BD29C93 /* GuestTrustStore.swift */,
+				2920378B7FD0EA3C0E7391FF /* KernelSUModuleInjector.swift */,
+				D4A60CCCF89E572B64C68E28 /* ProxyProbe.swift */,
+				F65FC59A8A992B5A2CDADC85 /* WritableSystemInjector.swift */,
+			);
+			path = Capture;
 			sourceTree = "<group>";
 		};
 		D7AE80EE0661981B1AEBEA1F /* Generated */ = {
@@ -737,8 +823,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7565C553CAA059ED4D807908 /* Mandroid */,
 				7116F660B4E2AD3AE675827A /* MandroidKit */,
+				7565C553CAA059ED4D807908 /* Mandroid */,
 				E013D7B55A81433B96B45E16 /* MandroidKitTests */,
 			);
 		};
@@ -754,8 +840,11 @@
 				2956E519FF7E58F0CAB5E537 /* dumpsys-display-0only.txt in Resources */,
 				7700A4B60AEF1DB5DC123672 /* dumpsys-display-1secondary.txt in Resources */,
 				238AA060FA11039EAB0081ED /* dumpsys-display-3secondary.txt in Resources */,
+				FC5051EC40D3ABE4265B3048 /* other-ca.pem in Resources */,
 				512E94E7822481A2E4C2EC1F /* repository2-3.xml in Resources */,
 				201AD07F1E27F9E63ACB2867 /* sys-img2-3-google_apis_playstore.xml in Resources */,
+				229138E8FC14E24791295BA2 /* test-ca.pem in Resources */,
+				7ACA374D6FCB2E8002825EBB /* test-leaf.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,20 +903,31 @@
 				3E2808F8E2220D9787390C22 /* AppMigrationTests.swift in Sources */,
 				308932A4547F01DC338B9327 /* AppProxyTests.swift in Sources */,
 				00EBD9C62DC4790FF40C7C6B /* AuditRegressionTests.swift in Sources */,
+				1B9150A0EB83F74AF90019E1 /* CaptureCertificateControllerTests.swift in Sources */,
+				26DBB5FEBC2C27FB1EE4599F /* CaptureCertificateTests.swift in Sources */,
 				042A528ECE7E1A97BEF0C932 /* CatalogTests.swift in Sources */,
+				2B6A9850417995B5BD8D079C /* CertificateAuthorityResolverTests.swift in Sources */,
+				96ED3CDE7D8F989E02D8DC4E /* CertificateChainCheckerTests.swift in Sources */,
+				E4EE32227883D05F404441B2 /* CertificateInjectorFactoryTests.swift in Sources */,
 				ABA069897E3CF4B5AAF49F2E /* DeviceProfileTests.swift in Sources */,
 				407A8753EE4BABD7F642049B /* Fixtures.swift in Sources */,
 				7E59DA6309CF5C31315A296E /* FrameView.swift in Sources */,
 				BF15DBC4080E020931218EA2 /* FrameViewInputTests.swift in Sources */,
 				F04B857900FF2EA320B7B0EA /* GPUBackendTests.swift in Sources */,
+				83D81BA5FBAEE3A77582AADD /* GuestSessionCapabilitiesTests.swift in Sources */,
+				0C9DE5409AEF3F62E715D872 /* GuestTrustStoreTests.swift in Sources */,
 				CC755A8A5F49632A6287CAD5 /* HostDevicesTests.swift in Sources */,
 				F12B6081F2DF4A0290363E20 /* InputTests.swift in Sources */,
+				4AA858F7BA813146E13AF22B /* KernelSUModuleInjectorTests.swift in Sources */,
 				78B50525F4B22DD63646A684 /* KernelSUTests.swift in Sources */,
 				D2F4038A521D72D1500DEBA4 /* LauncherStubBuilder.swift in Sources */,
 				587B50F4C78DFE79DFC8BEF2 /* MediaVolumeTests.swift in Sources */,
 				A2429DDC765F9DCA5078F7BD /* ParserTests.swift in Sources */,
 				6968875561F06E48324AB93C /* PortAllocatorTests.swift in Sources */,
+				51349E0315EC6F36D730BBF1 /* ProxyProbeTests.swift in Sources */,
 				544D132385DFD21F85F22A82 /* RepositoryManifestTests.swift in Sources */,
+				CE52FE8CBC3AA03C0465C90D /* SystemImageSelectionTests.swift in Sources */,
+				2455DF0F229E0E4D4A08514E /* WritableSystemInjectorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -844,6 +944,13 @@
 				BE7BB2EA4A9B4702690989EC /* AppCatalog.swift in Sources */,
 				4FF890186A809726BAAF7FC2 /* AppMigration.swift in Sources */,
 				E317A12345EA843B8B97F0C8 /* BootWaiter.swift in Sources */,
+				6A55A88AA22ED8D958BDB316 /* CaptureCertificate.swift in Sources */,
+				40B6888499C352BB67DCF117 /* CaptureCertificateController.swift in Sources */,
+				8BDAA2E37C8F07BEF6927774 /* CaptureCertificateStore.swift in Sources */,
+				30D26FBC50CC17A7C3F6449B /* CertificateAuthorityResolver.swift in Sources */,
+				7CE9984B42DFD6627C381290 /* CertificateChainChecker.swift in Sources */,
+				F9CB7AC9C5BBC967695B0CAC /* CertificateInjecting.swift in Sources */,
+				5707FDB3DE5C08E0A5A4BE60 /* CertificateInjectorFactory.swift in Sources */,
 				E6C833D2D13CBF721F5B9C69 /* ClipboardSync.swift in Sources */,
 				E7BE7F27D9002E1CFCE3393C /* CoordinateMapper.swift in Sources */,
 				05874F1DF6A7CD0C4834B90C /* DeviceProfile.swift in Sources */,
@@ -860,11 +967,14 @@
 				4F1A02EE0DB0CA2E4820E00D /* Frame.swift in Sources */,
 				DD46327E5999D21122E576B3 /* GPUBackend.swift in Sources */,
 				400DF40E5CA1F033D0C6024A /* GRPCFrameStream.swift in Sources */,
+				BB9B45FBB3B4524D368C7318 /* GuestSessionCapabilities.swift in Sources */,
 				875091EB49C033602956E670 /* GuestSetup.swift in Sources */,
+				33AD2256056A5BF4978035E9 /* GuestTrustStore.swift in Sources */,
 				7AE0BF2997499CBC7BD4B223 /* HTTPProxyEndpoint.swift in Sources */,
 				8D4ED6A726DA7E4EAAAE88B0 /* IconExtractor.swift in Sources */,
 				74A93C1F77047983F9AF98C6 /* InputChannel.swift in Sources */,
 				D31CB0D9A9380FA508B0B53C /* InputRouter.swift in Sources */,
+				24E58D20408231246634DD46 /* KernelSUModuleInjector.swift in Sources */,
 				32F0B027B070531C81B156BF /* KernelSUPatcher.swift in Sources */,
 				5E9630B0793E9BB67881AF88 /* KeyMap.swift in Sources */,
 				8F073A81288670F1E64D2A72 /* Log.swift in Sources */,
@@ -872,6 +982,7 @@
 				9B24B15DA44DF7AB251444C6 /* MediaVolume.swift in Sources */,
 				713C2AB7969825E509E648CE /* PackageListParser.swift in Sources */,
 				B1A174E26EE31BFC25E166CE /* PortAllocator.swift in Sources */,
+				EAAB37E1765B48CBAF116152 /* ProxyProbe.swift in Sources */,
 				E065A1D2DBB653C32951E245 /* RepositoryManifest.swift in Sources */,
 				4CC46AA221A6EC77BCBB285C /* RunnerCoordinator.swift in Sources */,
 				0E75B38D62999361CD23C292 /* RunnerSettings.swift in Sources */,
@@ -885,6 +996,7 @@
 				33A7D28766027E7C46687D3F /* Subprocess.swift in Sources */,
 				F9CE9BA3584809592025885E /* TaskListParser.swift in Sources */,
 				CDE305331380AF7CBD85F64C /* Unarchiver.swift in Sources */,
+				34994EF2CB2CAB688464106A /* WritableSystemInjector.swift in Sources */,
 				E2F27000D2DF19DD22774D22 /* emulator_controller.grpc.swift in Sources */,
 				D4BC40D0D59F484F16264828 /* emulator_controller.pb.swift in Sources */,
 			);

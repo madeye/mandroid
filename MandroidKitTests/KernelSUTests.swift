@@ -61,16 +61,18 @@ import Testing
         try Data("patched".utf8).write(to: ramdisk)
         try Data("helper".utf8).write(to: guest)
         let manifest = KernelSUPatcher.Manifest(version: KernelSUPatcher.version, kernelHash: "kernel", stockRamdiskHash: "stock",
-                                               patchedHash: try KernelSUPatcher.hash(ramdisk), guestToolHash: try KernelSUPatcher.hash(guest))
+                                               patchedHash: try KernelSUPatcher.hash(ramdisk), guestToolHash: try KernelSUPatcher.hash(guest),
+                                               allowShell: false)
         try JSONEncoder().encode(manifest).write(to: root.appendingPathComponent("manifest.json"))
-        #expect(KernelSUPatcher.validCache(at: root, kernelHash: "kernel", stockHash: "stock"))
-        #expect(!KernelSUPatcher.validCache(at: root, kernelHash: "updated", stockHash: "stock"))
-        #expect(!KernelSUPatcher.validCache(at: root, kernelHash: "kernel", stockHash: "updated"))
+        #expect(KernelSUPatcher.validCache(at: root, kernelHash: "kernel", stockHash: "stock", allowShell: false))
+        #expect(!KernelSUPatcher.validCache(at: root, kernelHash: "kernel", stockHash: "stock", allowShell: true))
+        #expect(!KernelSUPatcher.validCache(at: root, kernelHash: "updated", stockHash: "stock", allowShell: false))
+        #expect(!KernelSUPatcher.validCache(at: root, kernelHash: "kernel", stockHash: "updated", allowShell: false))
         try Data("corrupt".utf8).write(to: guest)
-        #expect(!KernelSUPatcher.validCache(at: root, kernelHash: "kernel", stockHash: "stock"))
+        #expect(!KernelSUPatcher.validCache(at: root, kernelHash: "kernel", stockHash: "stock", allowShell: false))
         try Data("helper".utf8).write(to: guest)
         try Data("corrupt".utf8).write(to: ramdisk)
-        #expect(!KernelSUPatcher.validCache(at: root, kernelHash: "kernel", stockHash: "stock"))
+        #expect(!KernelSUPatcher.validCache(at: root, kernelHash: "kernel", stockHash: "stock", allowShell: false))
     }
 
     @Test func toolFailureAndCancellationAreReported() async throws {
@@ -95,10 +97,49 @@ import Testing
         try Data("stock ramdisk".utf8).write(to: ramdisk)
         let patcher = KernelSUPatcher(paths: SDKPaths(root: root))
         await #expect(throws: KernelSUPatcher.Failure.self) {
-            _ = try await patcher.prepare(imageDirectory: image) { _ in }
+            _ = try await patcher.prepare(imageDirectory: image, allowShell: false) { _ in }
         }
         #expect(try Data(contentsOf: kernel) == compressed.stdout)
         #expect(try Data(contentsOf: ramdisk) == Data("stock ramdisk".utf8))
         #expect(!FileManager.default.fileExists(atPath: patcher.root.path))
+    }
+
+    @Test func cacheDirectorySeparatesShellRootedPatches() {
+        let plain = KernelSUPatcher.cacheDirectoryName(version: "3.3.0", kernelHash: "aa", stockHash: "bb", allowShell: false)
+        let rooted = KernelSUPatcher.cacheDirectoryName(version: "3.3.0", kernelHash: "aa", stockHash: "bb", allowShell: true)
+        #expect(plain != rooted)
+        #expect(plain == "v3.3.0-aa-bb")
+        #expect(rooted == "v3.3.0-aa-bb-shell")
+    }
+
+    @Test func preparedRamdiskReportsShellRoot() {
+        let cache = URL(fileURLWithPath: "/patches", isDirectory: true)
+        func ramdisk(allowShell: Bool) -> URL {
+            let directory = KernelSUPatcher.cacheDirectoryName(version: KernelSUPatcher.version, kernelHash: "aa",
+                                                               stockHash: "bb", allowShell: allowShell)
+            return cache.appendingPathComponent(directory, isDirectory: true).appendingPathComponent("ramdisk.img")
+        }
+        #expect(!KernelSUPatcher.allowsShell(ramdisk: ramdisk(allowShell: false)))
+        #expect(KernelSUPatcher.allowsShell(ramdisk: ramdisk(allowShell: true)))
+        #expect(!KernelSUPatcher.allowsShell(ramdisk: nil))
+    }
+
+    @Test func manifestCarriesShellRootChoice() throws {
+        let manifest = KernelSUPatcher.Manifest(version: "3.3.0", kernelHash: "aa", stockRamdiskHash: "bb",
+                                                patchedHash: "cc", guestToolHash: "dd", allowShell: true)
+        let decoded = try JSONDecoder().decode(KernelSUPatcher.Manifest.self, from: JSONEncoder().encode(manifest))
+        #expect(decoded == manifest)
+        #expect(decoded.allowShell)
+    }
+
+    @Test func captureCertificateSettingRoundTrips() throws {
+        let suite = "capture-setting-\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        var settings = RunnerSettings.load(from: defaults)
+        #expect(!settings.captureCertificateEnabled)
+        settings.captureCertificateEnabled = true
+        settings.save(to: defaults)
+        #expect(RunnerSettings.load(from: defaults).captureCertificateEnabled)
     }
 }

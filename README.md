@@ -4,6 +4,8 @@
 
 # Mandroid
 
+English | [简体中文](README.zh-CN.md)
+
 Run Android apps on your Mac as if they were native macOS apps. Each Android
 app gets its own window with a normal title bar, resizes like a Mac window,
 shares the clipboard, answers to Cmd shortcuts, and shows up in the Dock and
@@ -75,7 +77,8 @@ The supported image is Android 36.1 ARM64 revision 4 with kernel
 `6.12.38-android16-5-gbb9513914902-ab13996879-4k`; other kernels are rejected.
 Rooted sessions cold boot. Turn KernelSU off and restart to boot stock while
 keeping installed apps and data. Manage root grants in KernelSU Manager;
-ADB shell is not automatically granted root. See [KernelSU settings](docs/KERNELSU.md).
+KernelSU alone does not grant root to the ADB shell; the capture certificate
+feature is what prepares a shell-root ramdisk. See [KernelSU settings](docs/KERNELSU.md).
 
 Settings ▸ Camera & Microphone lets Android apps use this Mac's camera (as the
 front camera) and microphone, for voice and video calls. Both are off by
@@ -161,3 +164,19 @@ This configures Android's HTTP proxy recommendation, including HTTPS CONNECT.
 Apps that ignore Android HTTP proxy settings remain direct. The helper uses
 Android's VPN connection, replacing any other active Android VPN. No TLS
 certificates are installed and encrypted traffic is not decrypted.
+
+## Capture certificates
+
+Settings ▸ Capture certificates installs a debugging proxy's root CA into the
+virtual device's system trust store, so apps trust the HTTPS traffic the proxy
+captures. Choose the proxy's certificate file or paste its PEM, or enter the
+proxy's host and port and fetch the CA from it; Mandroid shows the subject and
+validity before installing, and with a proxy configured it first checks that
+the proxy signs with the chosen CA. Installing needs a rooted session, in one of
+two shapes. With KernelSU, turn on **Boot with KernelSU** and the capture
+certificate switch, then restart: the two together are what prepare a
+shell-root ramdisk. Otherwise boot a `google_apis` image with **Boot with a
+writable system partition**, whose store Mandroid rebuilds whenever the emulator
+starts. Chrome verifies against its own root store and ignores the installed CA,
+and apps that pin their own certificate still fail.
+See [Certificate injection](docs/CERTIFICATE-INJECTION.md).

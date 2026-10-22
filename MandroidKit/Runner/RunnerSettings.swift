@@ -5,6 +5,19 @@ public struct RunnerSettings: Sendable, Equatable {
     /// Nil preserves the guest volume until the user first adjusts it.
     public var mediaVolumePercent: Int?
     public var kernelSUEnabled = false
+    /// Install a capture proxy's CA into the guest trust store. Enabling this
+    /// implies shell root on the patched ramdisk, which is why it is separate
+    /// from `kernelSUEnabled`.
+    public var captureCertificateEnabled = false
+    /// Boot the guest with a writable system partition, which a `userdebug`
+    /// image needs before the capture certificate can go into the system store
+    /// as root. Independent of `captureCertificateEnabled`: one chooses the
+    /// image's partition, the other what is put on it.
+    public var writableSystemEnabled = false
+    /// Which installed system image the emulator boots, by tag. Independent of
+    /// `writableSystemEnabled`: choosing both is what a writable system session
+    /// needs, but neither turns the other on.
+    public var systemImageTag: String = SDKBootstrap.defaultTag
     public var ramMB: Int = 4096
     public var cores: Int = 4
     public var gpuBackend: GPUBackend = .defaultBackend
@@ -32,6 +45,9 @@ public struct RunnerSettings: Sendable, Equatable {
     public static func load(from defaults: UserDefaults = .standard) -> RunnerSettings {
         var s = RunnerSettings()
         s.kernelSUEnabled = defaults.bool(forKey: "kernelSUEnabled")
+        s.captureCertificateEnabled = defaults.bool(forKey: "captureCertificateEnabled")
+        s.writableSystemEnabled = defaults.bool(forKey: "writableSystemEnabled")
+        if let tag = defaults.string(forKey: "systemImageTag"), !tag.isEmpty { s.systemImageTag = tag }
         if let v = defaults.object(forKey: "mediaVolumePercent") as? Int, (0...100).contains(v) { s.mediaVolumePercent = v }
         if let v = defaults.object(forKey: "ramMB") as? Int, ramChoices.contains(v) { s.ramMB = v }
         if let v = defaults.object(forKey: "cores") as? Int, coreChoices.contains(v) { s.cores = v }
@@ -57,6 +73,9 @@ public struct RunnerSettings: Sendable, Equatable {
     public func save(to defaults: UserDefaults = .standard) {
         defaults.set(mediaVolumePercent, forKey: "mediaVolumePercent")
         defaults.set(kernelSUEnabled, forKey: "kernelSUEnabled")
+        defaults.set(captureCertificateEnabled, forKey: "captureCertificateEnabled")
+        defaults.set(writableSystemEnabled, forKey: "writableSystemEnabled")
+        defaults.set(systemImageTag, forKey: "systemImageTag")
         defaults.set(ramMB, forKey: "ramMB")
         defaults.set(cores, forKey: "cores")
         defaults.set(gpuBackend.rawValue, forKey: "gpuBackend")
@@ -99,6 +118,8 @@ public struct RunnerSettings: Sendable, Equatable {
         ramMB != running.ramMB || cores != running.cores || gpuBackend != running.gpuBackend
             || deviceDisplay != running.deviceDisplay || kernelSUEnabled != running.kernelSUEnabled
             || hostMicrophone != running.hostMicrophone || hostCamera != running.hostCamera
+            || writableSystemEnabled != running.writableSystemEnabled
+            || systemImageTag != running.systemImageTag
     }
 
     /// Applies the hardware settings to an AVD config. The host camera only
@@ -121,5 +142,6 @@ public struct RunnerSettings: Sendable, Equatable {
     public func apply(to options: inout EmulatorLaunchOptions) {
         options.gpuBackend = gpuBackend
         options.hostAudioInput = hostMicrophone
+        options.writableSystem = writableSystemEnabled
     }
 }

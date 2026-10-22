@@ -39,6 +39,10 @@ public actor SDKBootstrap {
     public private(set) var mirrors: [DownloadMirror] = DownloadMirror.order(for: .auto)
 
     public static let defaultTag = "google_apis_playstore"
+    /// Tag of Google's userdebug builds. Unlike the Play images they accept a
+    /// writable system partition, which a capture certificate needs when it
+    /// goes into the system trust store as root.
+    public static let userdebugTag = "google_apis"
     /// Apple silicon only: arm64 system images under HVF.
     public static let defaultABI = "arm64-v8a"
 
@@ -72,9 +76,52 @@ public actor SDKBootstrap {
     /// The system image directory currently installed, if any
     /// (`<sdk>/system-images/<api>/<tag>/<abi>` containing `system.img`).
     public nonisolated func installedSystemImage() -> (packagePath: String, directory: URL)? {
+        systemImageDirectories()
+            .sorted { $0.apiLevel > $1.apiLevel }
+            .first.map { ($0.packagePath, $0.directory) }
+    }
+
+    /// Every installed image at the highest API level present, one entry per
+    /// tag. Tags stay apart: `google_apis` and `google_apis_playstore` are
+    /// different images at the same level.
+    public nonisolated func installedSystemImages() -> [(packagePath: String, directory: URL, tag: String)] {
+        let images = systemImageDirectories()
+        guard let level = images.map(\.apiLevel).max() else { return [] }
+        return images
+            .filter { $0.apiLevel == level }
+            .sorted { $0.packagePath < $1.packagePath }
+            .map { ($0.packagePath, $0.directory, $0.tag) }
+    }
+
+    /// The installed image for `tag`, preferring the highest API level that has
+    /// one. Matching is by tag, so a `google_apis_playstore` image is never
+    /// returned for `google_apis`.
+    public nonisolated func installedSystemImage(tag: String) -> (packagePath: String, directory: URL)? {
+        systemImageDirectories()
+            .filter { $0.tag == tag }
+            .sorted { $0.apiLevel > $1.apiLevel }
+            .first.map { ($0.packagePath, $0.directory) }
+    }
+
+    /// The first of `packagePaths` whose tag is `tag`, or nil when none
+    /// matches. Paths are shaped `system-images;<api>;<tag>;<abi>`.
+    public static func image(matching tag: String, among packagePaths: [String]) -> String? {
+        packagePaths.first { self.tag(of: $0) == tag }
+    }
+
+    /// The tag component of a `system-images;<api>;<tag>;<abi>` path.
+    private static func tag(of packagePath: String) -> String? {
+        let parts = packagePath.split(separator: ";")
+        guard parts.count == 4, parts[0] == "system-images" else { return nil }
+        return String(parts[2])
+    }
+
+    /// Every `<sdk>/system-images/<api>/<tag>/<abi>` holding a `system.img`,
+    /// with the API level as a sort key.
+    private nonisolated func systemImageDirectories() -> [(packagePath: String, directory: URL, tag: String, apiLevel: Double)] {
         let fm = FileManager.default
-        guard let apis = try? fm.contentsOfDirectory(atPath: paths.systemImagesDir.path) else { return nil }
-        var found: [(String, URL, Double)] = []
+        guard let apis = try? fm.contentsOfDirectory(atPath: paths.systemImagesDir.path) else { return [] }
+        var found: [(packagePath: String, directory: URL, tag: String, apiLevel: Double)] = []
         for api in apis {
             let apiDir = paths.systemImagesDir.appendingPathComponent(api)
             for tag in (try? fm.contentsOfDirectory(atPath: apiDir.path)) ?? [] {
@@ -83,12 +130,12 @@ public actor SDKBootstrap {
                     let dir = tagDir.appendingPathComponent(abi)
                     if fm.fileExists(atPath: dir.appendingPathComponent("system.img").path) {
                         let level = Double(api.replacingOccurrences(of: "android-", with: "")) ?? 0
-                        found.append(("system-images;\(api);\(tag);\(abi)", dir, level))
+                        found.append(("system-images;\(api);\(tag);\(abi)", dir, tag, level))
                     }
                 }
             }
         }
-        return found.sorted { $0.2 > $1.2 }.first.map { ($0.0, $0.1) }
+        return found
     }
 
     public nonisolated var isReady: Bool {
@@ -197,7 +244,17 @@ public actor SDKBootstrap {
 
     // MARK: Execution
 
+    /// True while `run` is installing. A second install is refused rather than
+    /// queued: both would write the same archive and `.part` files under
+    /// `downloads/`, so the later one would fail only after downloading.
+    private var installing = false
+
     public func run(_ plan: BootstrapPlan, progress: @escaping @Sendable (BootstrapPhase) -> Void) async throws {
+        guard !installing else {
+            throw MandroidKitError.download("another install is already in progress; try again when it finishes")
+        }
+        installing = true
+        defer { installing = false }
         try paths.createDirectories()
         try writeLicenses(plan.licenses)
         for component in plan.components {

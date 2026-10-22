@@ -26,8 +26,15 @@ installed apps and data, and leaves Manager installed but inactive.
 On rooted startup Mandroid verifies that the KernelSU kernel module is active,
 installs the official Manager if absent, and opens it on the device screen.
 Open KernelSU Manager from the app library to manage root grants and modules.
-ADB shell is not automatically granted root. Root support does not change
-Mandroid's documented Play Integrity limitation.
+Root support does not change Mandroid's documented Play Integrity limitation.
+
+ADB shell is not granted root by KernelSU alone. Settings ▸ Capture certificates
+is the one feature that patches the ramdisk with shell root: installing a
+certificate runs through the ADB shell, so while that feature is on, the next
+KernelSU preparation adds `--allow-shell`. The choice is opt-in and independent
+of **Boot with KernelSU**; turning the capture feature off returns to the
+non-root ramdisk on the next restart. The two ramdisk variants are cached
+separately, so switching between them does not discard the other's patch.
 
 ## Setup and recovery
 
@@ -37,7 +44,8 @@ Mandroid's documented Play Integrity limitation.
    preparing alone does not enable root or restart the current session.
 3. Wait for Android to boot. Settings reports activation after checking the
    kernel module, and Manager opens on Device Screen. Use Manager for root
-   grants; Mandroid does not grant root to the ADB shell automatically.
+   grants; KernelSU on its own does not grant root to the ADB shell, and
+   Settings ▸ Capture certificates is what prepares a shell-root ramdisk.
 
 To return to stock, turn **Boot with KernelSU** off and select
 **Restart to Apply**. This also works after preparation or activation fails.
@@ -72,3 +80,9 @@ against release digests; an uncached network download was not exercised.
 Evidence is retained in `~/Library/Caches/mandroid-ui-kernelsu-51mj2fhg`:
 `results.json`, `runtime.log`, `tests.log`, `audit.log`, `reproduce.py`, and
 mode-specific guest and Settings screenshots.
+
+That run predates the shell-root ramdisk variant, which the capture certificate
+feature introduced. The variant is covered by unit tests for cache separation
+and manifest round-trip, but no live session has booted it; see
+[certificate injection](CERTIFICATE-INJECTION.md) for the outstanding runtime
+verifications.
